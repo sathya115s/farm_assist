@@ -1,11 +1,12 @@
 <?php
 
+use App\Http\Controllers\CropController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InsuranceController;
 use App\Http\Controllers\LivestocksInsuranceController;
-use App\Http\Controllers\FinancalController;
+use App\Http\Controllers\WeatherController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,14 +38,8 @@ require __DIR__.'/auth.php';
 
 Route::get('/',[LoginController::class,'index']);
 
-Route::get('/homepage',[LoginController::class,'home']);
+Route::get('/homepage',[LoginController::class,'home'])->name('homepage');
 
-Route::get('/insurance-show',[InsuranceController::class,'insurance_show'])->name('insurance_show');
-
-Route::get('/Livestockinsurance-show',[InsuranceController::class,'LivestocksInsurance_show'])->name('live_insurance');
-
-
-Route::get('/Livestocksinsurancelink-show',[InsuranceController::class,'LivestocksInsurancelink_show'])->name('liveinsurance_link');
-
-Route::get('/financial',[FinancalController::class,'financial'])->name('financial');
-Route::get('/income',[FinancalController::class,'income'])->name('income');
+Route::get('/show_weather_page',[WeatherController::class,'show_weather_page'])->name('show_weather_page');
+Route::get('/showcrop',[CropController::class,'showcrop'])->name('showcrop');
+Route::get('/onion-data', [CropController::class, 'getOnionData']);
