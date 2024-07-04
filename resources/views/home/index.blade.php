@@ -1168,6 +1168,11 @@
               <i class="fas fa-user-plus"></i> Sign Up
             </a>
           </div>
+          <div class="header__signup">
+            <a href="{{route('register')}}" class="btn btn__signup">
+              <i class="fas fa-user-plus"></i> Sign In
+            </a>
+          </div>
         </div>
 
         <div class="hamburger-menu-wrap">

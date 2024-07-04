@@ -13,7 +13,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            overflow: hidden; /* Hide overflow to prevent scrollbars */
+            overflow: hidden;
         }
 
         .video-bg {
@@ -22,17 +22,13 @@
             bottom: 0;
             min-width: 100%;
             min-height: 100%;
-            z-index: -1; /* Place the video behind other content */
+            z-index: -1;
         }
 
         .container {
             animation: fadeIn 1s ease-in-out;
-            /* background-color: rgba(255, 255, 255, 0.5); Semi-transparent background */
-            border-radius: 15px;
-            padding: 20px;
-            /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
-            position: relative; /* Needed for stacking context */
-            z-index: 1; /* Ensure form is above video */
+            position: relative;
+            z-index: 1;
         }
 
         @keyframes fadeIn {
@@ -61,6 +57,16 @@
             width: 150px;
             height: auto;
         }
+
+        form {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 20px;
+        }
     </style>
 </head>
 
@@ -84,7 +90,7 @@
                     <p class="text-700">Access your farmer account</p>
                 </div>
 
-                <form method="POST" >
+                <form method="POST">
                     @csrf
 
                     <div class="mb-3 text-start">
@@ -98,12 +104,12 @@
                     <div class="mb-3 text-start">
                         <label class="form-label" for="password">Password</label>
                         <div class="form-icon-container">
-                            <input class="form-control form-icon-input" id="password" type="password"
-                                name="password" placeholder="Password" required autocomplete="current-password" />
+                            <input class="form-control form-icon-input" id="password" type="password" name="password"
+                                placeholder="Password" required autocomplete="current-password" />
                             <span class="fas fa-key text-900 fs--1 form-icon"></span>
                         </div>
                     </div>
-                    
+
                     <button class="btn btn-primary w-100 mb-3" type="submit">Sign In</button>
                 </form>
                 <!-- <div class="text-center"><a class="fs--1 fw-bold" href="sign-up.html">Create an account</a></div> -->

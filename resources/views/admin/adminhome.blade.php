@@ -9,11 +9,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <style>
         body {
-            display: flex;
-            justify-content: center;
+            /* display: flex; */
+            /* justify-content: center; */
             align-items: center;
-            height: 100vh;
-            /* overflow: hidden; Hide overflow to prevent scrollbars */
+            /* height: 100vh; */
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1200px;
         }
 
         .card {
@@ -30,38 +35,47 @@
 
         .card-body {
             padding: 20px;
-            text-align: center; /* Center align text */
+            text-align: center;
         }
 
-        .card-img {
+        .card-img-top {
             width: 100%;
-            height: 200px; /* Adjust as needed for uniform height */
-            object-fit: contain; /* Maintain aspect ratio */
+            height: 200px;
+            object-fit: cover;
             border-radius: 15px 15px 0 0;
-            cursor: pointer; /* Change cursor to pointer on hover */
+            cursor: pointer;
         }
 
-        .card-img:hover {
-            opacity: 0.8; /* Reduce opacity on hover */
+        .card-img-top:hover {
+            opacity: 0.8;
         }
-        img{
-          width: 100%;
-          height: 200px;
+        nav{
+            width: 100%;
+        }
+        .min-h-screen{
+            min-height: 0vh !important;
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
+    <nav>
+        <ul>
+            <li>
+                <x-app-layout></x-app-layout>
+            </li>
+        </ul>
+    </nav>
+    <div class="container mt-5">
         <div class="text-center mb-5">
             <h3 class="section-title">Farm Information</h3>
         </div>
 
         <div class="row">
             <!-- Crop Information Card -->
-            <div class="col-lg-4 col-md-6">
+            <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card">
-                    <a href="{{route('showcrop')}}"> <!-- Link to your next page -->
+                    <a href="{{route('showcrop')}}">
                         <img src="images/crop-image.avif" class="card-img-top" alt="Crop Image">
                     </a>
                     <div class="card-header">
@@ -74,9 +88,9 @@
             </div>
 
             <!-- Livestock Information Card -->
-            <div class="col-lg-4 col-md-6">
+            <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card">
-                    <a href="livestock.html"> <!-- Link to your next page -->
+                    <a href="livestock.html">
                         <img src="images/livestock.avif" class="card-img-top" alt="Livestock Image">
                     </a>
                     <div class="card-header">
@@ -89,9 +103,9 @@
             </div>
 
             <!-- Market Price Information Card -->
-            <div class="col-lg-4 col-md-6">
+            <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card">
-                    <a href="marketprice.html"> <!-- Link to your next page -->
+                    <a href="marketprice.html">
                         <img src="images/marketprice.jpeg" class="card-img-top" alt="Market Price Image">
                     </a>
                     <div class="card-header">
@@ -104,9 +118,9 @@
             </div>
 
             <!-- Weather Information Card -->
-            <div class="col-lg-4 col-md-6">
+            <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card">
-                    <a href="{{route('show_weather_page')}}"> <!-- Link to your next page -->
+                    <a href="{{route('show_weather_page')}}">
                         <img src="images/weather.avif" class="card-img-top" alt="Weather Image">
                     </a>
                     <div class="card-header">
@@ -119,9 +133,9 @@
             </div>
 
             <!-- Finance Information Card -->
-            <div class="col-lg-4 col-md-6">
+            <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card">
-                    <a href="finance.html"> <!-- Link to your next page -->
+                    <a href="finance.html">
                         <img src="images/finance.avif" class="card-img-top" alt="Finance Image">
                     </a>
                     <div class="card-header">
@@ -134,9 +148,9 @@
             </div>
 
             <!-- Insurance Information Card -->
-            <div class="col-lg-4 col-md-6">
+            <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card">
-                    <a href="insurance.html"> <!-- Link to your next page -->
+                    <a href="insurance.html">
                         <img src="images/insurance.avif" class="card-img-top" alt="Insurance Image">
                     </a>
                     <div class="card-header">
@@ -148,8 +162,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- <button class="btn btn-primary w-100 mt-4" type="submit">Submit</button> -->
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
