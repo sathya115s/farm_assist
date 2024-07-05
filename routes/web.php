@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CropactivitiesController;
 use App\Http\Controllers\CropController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LoginController;
@@ -43,3 +44,6 @@ Route::get('/homepage',[LoginController::class,'home'])->name('homepage');
 Route::get('/show_weather_page',[WeatherController::class,'show_weather_page'])->name('show_weather_page');
 Route::get('/showcrop',[CropController::class,'showcrop'])->name('showcrop');
 Route::get('/onion-data', [CropController::class, 'getOnionData']);
+
+Route::get('/cropactivities',[CropactivitiesController::class,'getcropactivity'])->name('cropactivities');
+Route::get('/cropactivities/{crop}', [CropactivitiesController::class, 'getCropActivities']);

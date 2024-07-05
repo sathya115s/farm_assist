@@ -2,6 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CropactivitiesController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +20,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::get('/cropactivities',[CropactivitiesController::class,'getcropactivity'])->name('cropactivities');
+Route::get('/cropactivities/{crop}', [CropactivitiesController::class, 'getCropActivities']);

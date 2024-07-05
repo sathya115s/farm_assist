@@ -59,13 +59,7 @@
 </head>
 
 <body>
-    <nav>
-        <ul>
-            <li>
-                <x-app-layout></x-app-layout>
-            </li>
-        </ul>
-    </nav>
+    
     <div class="container mt-5">
         <div class="text-center mb-5">
             <h3 class="section-title">Farm Information</h3>
