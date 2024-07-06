@@ -37,6 +37,8 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 
+Route::get('/user',[LoginController::class,'getusers']);
+
 Route::get('/',[LoginController::class,'index']);
 
 Route::get('/homepage',[LoginController::class,'home'])->name('homepage');
@@ -46,4 +48,6 @@ Route::get('/showcrop',[CropController::class,'showcrop'])->name('showcrop');
 Route::get('/onion-data', [CropController::class, 'getOnionData']);
 
 Route::get('/cropactivities',[CropactivitiesController::class,'getcropactivity'])->name('cropactivities');
-Route::get('/cropactivities/{crop}', [CropactivitiesController::class, 'getCropActivities']);
+// Route::get('/getcropactivities/{crop}', [CropactivitiesController::class, 'getCropActivities']);
+Route::get('/getcropactivities/{crop}', [CropactivitiesController::class, 'getCropActivities']);
+

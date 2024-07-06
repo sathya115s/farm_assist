@@ -14,9 +14,13 @@ class CropactivitiesController extends Controller
 
     public function getCropActivities($crop)
     {
-        // Fetch activities for a specific crop
-        $cropActivities = Cropactivities::find($crop);
+        // Fetch crop activities based on the crop name
+        $activities = Cropactivities::where('crop', $crop)->get();
 
-        return response()->json($cropActivities);
+        if ($activities->isEmpty()) {
+            return response()->json(['message' => 'No activities found for this crop'], 404);
+        }
+
+        return response()->json($activities, 200);
     }
 }
