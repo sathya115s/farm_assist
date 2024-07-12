@@ -13,6 +13,7 @@
             /* justify-content: center; */
             align-items: center;
             /* height: 100vh; */
+            overflow: hidden;
             background-color: #f0f0f0;
             margin: 0;
         }
@@ -60,7 +61,7 @@
 
 <body>
     
-    <div class="container mt-5">
+    <div class="container mt-3">
         <div class="text-center mb-5">
             <h3 class="section-title">Farm Information</h3>
         </div>

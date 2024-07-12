@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Farm Assist - Sign In</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>FARM ASSIST</title>
+  <link rel="icon" type="image/png" href="images/farm-logo.svg">    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <style>
         body {
@@ -58,7 +58,16 @@
             height: auto;
         }
 
-        form {
+        /* form {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 20px;
+        } */
+        .col-sm-10,.col-md-8 .col-lg-5 .col-xl-5 .col-xxl-3{
             background: rgba(255, 255, 255, 0.2);
             border-radius: 16px;
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -78,7 +87,7 @@
     </video>
 
     <div class="container">
-        <div class="row justify-content-center min-vh-100 py-5">
+        <div class="row justify-content-center py-5">
             <div class="col-sm-10 col-md-8 col-lg-5 col-xl-5 col-xxl-3">
                 <div class="d-flex justify-content-center">
                     <a class="d-flex flex-center text-decoration-none mb-4" href="/">

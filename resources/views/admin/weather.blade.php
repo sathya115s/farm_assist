@@ -4,7 +4,8 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Weather App Project JavaScript | CodingNepal</title>
+  <title>FARM ASSIST</title>
+  <link rel="icon" type="image/png" href="images/farm-logo.svg">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     /* Import Google font - Open Sans */
