@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- Coding By CodingNepal - www.codingnepalweb.com -->
 <html lang="en">
 
 <head>
@@ -111,6 +110,8 @@
       padding: 20px 70px 20px 20px;
       display: flex;
       justify-content: space-between;
+      position: relative;
+      overflow: hidden;
     }
 
     .current-weather h2 {
@@ -165,6 +166,31 @@
     .weather-cards .card img {
       max-width: 70px;
       margin: 5px 0 -12px 0;
+    }
+
+    .rain-animation {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .rain-animation .drop {
+      position: absolute;
+      bottom: 100%;
+      width: 2px;
+      height: 20px;
+      background: rgba(255, 255, 255, 0.6);
+      animation: fall 0.5s linear infinite;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh);
+      }
     }
 
     @media (max-width: 1400px) {
@@ -222,6 +248,7 @@
 <body>
   <h1>Weather Dashboard</h1>
   <div class="container">
+    
     <div class="weather-input">
       <h3>Enter a City Name</h3>
       <input class="city-input" type="text" placeholder="E.g., New York, London, Tokyo">
@@ -237,6 +264,7 @@
           <h6>Wind: __ M/S</h6>
           <h6>Humidity: __%</h6>
         </div>
+        <div class="rain-animation"></div> <!-- Raindrop Animation Container -->
       </div>
       <div class="days-forecast">
         <h2>5-Day Forecast</h2>
@@ -281,6 +309,7 @@
     const locationButton = document.querySelector(".location-btn");
     const currentWeatherDiv = document.querySelector(".current-weather");
     const weatherCardsDiv = document.querySelector(".weather-cards");
+    const rainAnimationDiv = document.querySelector(".rain-animation");
 
     const API_KEY = "eb598c768375941e4132d7fec878c58c"; // API key for OpenWeatherMap API
 
@@ -334,6 +363,14 @@
             weatherCardsDiv.insertAdjacentHTML("beforeend", html);
           }
         });
+
+        // Add rain animation if raining
+        const isRaining = fiveDaysForecast[0].weather[0].main.toLowerCase().includes("rain");
+        if (isRaining) {
+          addRainAnimation();
+        } else {
+          removeRainAnimation();
+        }
       }).catch(() => {
         alert("An error occurred while fetching the weather forecast!");
       });
@@ -374,6 +411,21 @@
             alert("Geolocation request error. Please reset location permission.");
           }
         });
+    }
+
+    const addRainAnimation = () => {
+      rainAnimationDiv.innerHTML = ""; // Clear previous raindrops
+      for (let i = 0; i < 100; i++) {
+        const drop = document.createElement("div");
+        drop.classList.add("drop");
+        drop.style.left = `${Math.random() * 100}%`;
+        drop.style.animationDuration = `${Math.random() * 0.5 + 0.5}s`;
+        rainAnimationDiv.appendChild(drop);
+      }
+    }
+
+    const removeRainAnimation = () => {
+      rainAnimationDiv.innerHTML = ""; // Clear raindrops
     }
 
     locationButton.addEventListener("click", getUserCoordinates);
