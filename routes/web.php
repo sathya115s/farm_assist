@@ -6,7 +6,6 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InsuranceController;
-use App\Http\Controllers\LivestocksInsuranceController;
 use App\Http\Controllers\WeatherController;
 
 /*
@@ -37,17 +36,23 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 
-Route::get('/user',[LoginController::class,'getusers']);
-
+//display the index page here
 Route::get('/',[LoginController::class,'index']);
 
+//display the homepage here
 Route::get('/homepage',[LoginController::class,'home'])->name('homepage');
 
+
+//weather part
 Route::get('/show_weather_page',[WeatherController::class,'show_weather_page'])->name('show_weather_page');
+
+//crop part
 Route::get('/showcrop',[CropController::class,'showcrop'])->name('showcrop');
-Route::get('/onion-data', [CropController::class, 'getOnionData']);
 
 Route::get('/cropactivities',[CropactivitiesController::class,'getcropactivity'])->name('cropactivities');
 // Route::get('/getcropactivities/{crop}', [CropactivitiesController::class, 'getCropActivities']);
 Route::get('/getcropactivities/{crop}', [CropactivitiesController::class, 'getCropActivities']);
+
+//insurance part
+Route::get('/insurance',[InsuranceController::class,'show_insurance'])->name('show_insurance');
 
