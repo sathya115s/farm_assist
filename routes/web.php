@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CropactivitiesController;
 use App\Http\Controllers\CropController;
+use App\Http\Controllers\LivestockController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
@@ -56,3 +57,7 @@ Route::get('/getcropactivities/{crop}', [CropactivitiesController::class, 'getCr
 //insurance part
 Route::get('/insurance',[InsuranceController::class,'show_insurance'])->name('show_insurance');
 
+//livestock part
+Route::get('/livestock',[LivestockController::class,'show_livestock'])->name('show_livestock');
+
+Route::post('/add_cattel',[LivestockController::class,'add'])->name('add_livestock');

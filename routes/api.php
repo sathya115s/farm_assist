@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CropactivitiesController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\LivestockController;
 
 
 /*
@@ -25,4 +26,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/cropactivities',[CropactivitiesController::class,'getcropactivity'])->name('cropactivities');
 Route::get('/getcropactivities/{crop}', [CropactivitiesController::class, 'getCropActivities']);
 Route::get('/user',[LoginController::class,'getusers']);
+Route::post('/add_cattle',[LivestockController::class,'add']);
+Route::get('/show_cattle',[LivestockController::class,'show']);
 
