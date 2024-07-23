@@ -29,3 +29,6 @@ Route::get('/user',[LoginController::class,'getusers']);
 Route::post('/add_cattle',[LivestockController::class,'add']);
 Route::get('/show_cattle',[LivestockController::class,'show']);
 
+//livestock part
+Route::get('/livestock',[LivestockController::class,'show_livestock'])->name('show_livestock');
+Route::get('/show_livestock',[LivestockController::class,'show']);

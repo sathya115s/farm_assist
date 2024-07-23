@@ -60,4 +60,5 @@ Route::get('/insurance',[InsuranceController::class,'show_insurance'])->name('sh
 //livestock part
 Route::get('/livestock',[LivestockController::class,'show_livestock'])->name('show_livestock');
 
+Route::get('/show_livestock',[LivestockController::class,'show']);
 Route::post('/add_cattel',[LivestockController::class,'add'])->name('add_livestock');

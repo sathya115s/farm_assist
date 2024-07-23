@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +13,7 @@
             padding: 20px;
             background-color: #a5dae2;
         }
+
         .container {
             max-width: 600px;
             margin: 0 auto;
@@ -26,12 +28,14 @@
             transform: translateY(20px);
             animation: fadeIn 1s forwards;
         }
+
         @keyframes fadeIn {
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
+
         h2 {
             text-align: center;
             margin-bottom: 20px;
@@ -39,36 +43,42 @@
             opacity: 0;
             animation: fadeIn 1s forwards 0.5s;
         }
+
         .form-group {
             margin-bottom: 15px;
             opacity: 0;
             animation: fadeIn 1s forwards 0.75s;
         }
+
         .form-group label {
             display: block;
             margin-bottom: 5px;
-            color: #333; /* Changed text color for better readability */
-            font-weight: bold; /* Added bold font weight */
+            color: #333;
+            font-weight: bold;
         }
+
         .form-group input,
         .form-group select {
-            width: calc(100% - 16px); /* Adjusted width to accommodate padding and borders */
+            width: calc(100% - 16px);
             padding: 8px;
             box-sizing: border-box;
             transition: border-color 0.3s, box-shadow 0.3s;
             border-radius: 4px;
             border: 1px solid #ccc;
-            font-size: 14px; /* Increased font size for better visibility */
+            font-size: 14px;
         }
+
         .form-group input:focus,
         .form-group select:focus {
             border-color: #28a745;
             box-shadow: 0 0 8px rgba(40, 167, 69, 0.2);
         }
+
         .form-group input[type="date"],
         .form-group input[type="time"] {
             padding: 7px;
         }
+
         .form-group button {
             width: 100%;
             padding: 10px;
@@ -81,19 +91,23 @@
             opacity: 0;
             animation: fadeIn 1s forwards 1s;
         }
+
         .form-group button:hover {
             background-color: #218838;
             transform: scale(1.02);
         }
+
         .form-group button:focus {
             outline: none;
             box-shadow: 0 0 8px rgba(40, 167, 69, 0.5);
         }
+
         #color {
             height: 40px;
             padding: 0;
             border: none;
         }
+
         .success-message,
         .error-message {
             display: none;
@@ -104,17 +118,21 @@
             border-radius: 4px;
             animation: fadeIn 0.5s forwards;
         }
+
         .success-message {
             background-color: #28a745;
         }
+
         .error-message {
             background-color: #dc3545;
         }
+
         .hidden {
             display: none;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h2>Animal Information</h2>
@@ -135,8 +153,8 @@
             </div>
             <div class="form-group">
                 <label>Vaccinated:</label>
-                <input type="radio" id="vaccinated-yes" name="vaccination_status" value="yes" required> Yes
-                <input type="radio" id="vaccinated-no" name="vaccination_status" value="no" required> No
+                <input type="radio" id="vaccinated-yes" name="vaccinated" value="yes" required> Yes
+                <input type="radio" id="vaccinated-no" name="vaccinated" value="no" required> No
             </div>
             <div class="form-group hidden" id="vaccination-date-group">
                 <label for="vaccination-date">Vaccination Date:</label>
@@ -168,11 +186,12 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
         $(document).ready(function () {
-            $('input[name="vaccination_status"]').change(function () {
+            $('input[name="vaccinated"]').change(function () {
                 if ($('#vaccinated-yes').is(':checked')) {
                     $('#vaccination-date-group').removeClass('hidden');
                 } else {
                     $('#vaccination-date-group').addClass('hidden');
+                    $('#vaccination-date').val(''); // Clear the vaccination date value
                 }
             });
 
@@ -182,6 +201,11 @@
                 var formData = new FormData(this);
                 formData.append('_token', $('meta[name="csrf-token"]').attr('content'));
 
+                // If vaccinated-no is checked, remove vaccinated_date from formData
+                if ($('#vaccinated-no').is(':checked')) {
+                    formData.delete('vaccinated_date');
+                }
+
                 $.ajax({
                     type: "POST",
                     url: "{{ route('add_livestock') }}",
@@ -190,15 +214,16 @@
                     contentType: false,
                     success: function (response) {
                         if (response.status === 200) {
-                            $('.success-message').fadeIn().delay(3000).fadeOut();
+                            alert('Livestock added successfully.');
+                            location.reload();
                             $('#livestock-form')[0].reset(); // Reset the form
                             $('#vaccination-date-group').addClass('hidden'); // Hide the vaccination date field
                         } else {
-                            $('.error-message').text('Message: ' + response.message).fadeIn().delay(3000).fadeOut();
+                            alert('Message: ' + response.message);
                         }
                     },
                     error: function (xhr, status, error) {
-                        $('.error-message').text('An error occurred. Please try again.').fadeIn().delay(3000).fadeOut();
+                        alert('An error occurred. Please try again.');
                         console.error(xhr.responseText);
                     }
                 });
@@ -206,4 +231,5 @@
         });
     </script>
 </body>
+
 </html>

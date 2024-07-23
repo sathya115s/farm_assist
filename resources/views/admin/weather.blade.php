@@ -18,25 +18,46 @@
     }
 
     body {
-      background: #E3F2FD;
+      background-image: url('images/weather-image.webp');
+      background-repeat: no-repeat;
+      background-size: cover;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
     }
 
     h1 {
-      background: #5372F0;
+      background: linear-gradient(90deg, #3a6c40, #5a8d50);
       font-size: 1.75rem;
       text-align: center;
       padding: 18px 0;
       color: #fff;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      animation: slideIn 1s ease-in-out;
     }
 
     .container {
       display: flex;
       gap: 35px;
       padding: 30px;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeIn 1.5s ease-in-out;
     }
 
     .weather-input {
       width: 550px;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+      animation: zoomIn 1s ease-in-out;
+    }
+
+    .weather-input h3 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
     }
 
     .weather-input input {
@@ -48,11 +69,13 @@
       margin: 10px 0 20px 0;
       border-radius: 4px;
       border: 1px solid #ccc;
+      transition: border 0.3s ease, box-shadow 0.3s ease;
     }
 
     .weather-input input:focus {
       padding: 0 16px;
-      border: 2px solid #5372F0;
+      border: 2px solid #FF5722;
+      box-shadow: 0 4px 8px rgba(255, 87, 34, 0.2);
     }
 
     .weather-input .separator {
@@ -71,7 +94,9 @@
       font-size: 1.18rem;
       padding: 0 15px;
       margin-top: -4px;
-      background: #E3F2FD;
+      background: #FFEB3B;
+      border-radius: 50%;
+      padding: 0 10px;
     }
 
     .weather-input button {
@@ -83,20 +108,21 @@
       border-radius: 4px;
       font-size: 1rem;
       color: #fff;
-      background: #5372F0;
-      transition: 0.2s ease;
+      background: #3a6c40;
+      transition: 0.2s ease, transform 0.2s ease;
     }
 
-    .weather-input .search-btn:hover {
-      background: #2c52ed;
+    .weather-input button:hover {
+      background: #e53935;
+      transform: translateY(-2px);
     }
 
     .weather-input .location-btn {
-      background: #6C757D;
+      background: #3a6c40;
     }
 
     .weather-input .location-btn:hover {
-      background: #5c636a;
+      background: #616161;
     }
 
     .weather-data {
@@ -105,13 +131,14 @@
 
     .weather-data .current-weather {
       color: #fff;
-      background: #5372F0;
+      background: rgba(49, 104, 49, 0.9);
       border-radius: 5px;
       padding: 20px 70px 20px 20px;
       display: flex;
       justify-content: space-between;
       position: relative;
       overflow: hidden;
+      animation: fadeIn 1s ease-in-out;
     }
 
     .current-weather h2 {
@@ -142,54 +169,81 @@
     .days-forecast h2 {
       margin: 20px 0;
       font-size: 1.5rem;
+      text-align: center;
+      animation: slideIn 1.2s ease-in-out;
     }
 
     .days-forecast .weather-cards {
       display: flex;
       gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeIn 1.5s ease-in-out;
     }
 
     .weather-cards .card {
       color: #fff;
       padding: 18px 16px;
       list-style: none;
-      width: calc(100% / 5);
-      background: #6C757D;
+      width: calc(100% / 5 - 20px);
+      background: rgba(49, 104, 49, 0.9);
       border-radius: 5px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+      animation: fadeIn 1s ease-in-out;
+      transition: transform 0.2s ease;
     }
 
-    .weather-cards .card h3 {
-      font-size: 1.3rem;
-      font-weight: 600;
-    }
-
-    .weather-cards .card img {
-      max-width: 70px;
-      margin: 5px 0 -12px 0;
-    }
-
-    .rain-animation {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      z-index: 0;
-    }
-
-    .rain-animation .drop {
-      position: absolute;
-      bottom: 100%;
-      width: 2px;
-      height: 20px;
-      background: rgba(255, 255, 255, 0.6);
-      animation: fall 0.5s linear infinite;
+    .weather-cards .card:hover {
+      transform: translateY(-10px);
     }
 
     @keyframes fall {
       to {
         transform: translateY(100vh);
+      }
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(0.95);
+      }
+      70% {
+        transform: scale(1);
+        box-shadow: 0 0 50px rgba(255, 223, 0, 0.7);
+      }
+      100% {
+        transform: scale(0.95);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateY(-100px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes zoomIn {
+      from {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
       }
     }
 
@@ -219,218 +273,124 @@
       }
 
       .weather-cards .card {
-        width: calc(100% / 2 - 10px);
+        width: calc(100% / 2 - 15px);
       }
     }
 
-    @media (max-width: 750px) {
-      h1 {
-        font-size: 1.45rem;
-        padding: 16px 0;
-      }
-
-      .container {
-        flex-wrap: wrap;
-        padding: 15px;
-      }
-
+    @media (max-width: 768px) {
       .weather-input {
         width: 100%;
+        padding: 20px;
       }
 
-      .weather-data h2 {
-        font-size: 1.35rem;
+      .weather-cards .card {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .weather-input h3 {
+        font-size: 1.2rem;
+      }
+
+      .weather-input input {
+        height: 40px;
+        padding: 0 12px;
+        font-size: 1rem;
+      }
+
+      .weather-input button {
+        padding: 8px 0;
+        font-size: 0.9rem;
       }
     }
   </style>
 </head>
 
 <body>
-  <h1>Weather Dashboard</h1>
   <div class="container">
-    
     <div class="weather-input">
-      <h3>Enter a City Name</h3>
-      <input class="city-input" type="text" placeholder="E.g., New York, London, Tokyo">
-      <button class="search-btn">Search</button>
+      <h3>Check the Weather Forecast</h3>
+      <input type="text" id="city" placeholder="Enter city">
+      <button onclick="getWeather()">Search</button>
       <div class="separator"></div>
-      <button class="location-btn">Use Current Location</button>
+      <button class="location-btn" onclick="getLocation()">Get Weather by Location</button>
     </div>
-    <div class="weather-data">
-      <div class="current-weather">
-        <div class="details">
-          <h2>_______ ( ______ )</h2>
-          <h6>Temperature: __°C</h6>
-          <h6>Wind: __ M/S</h6>
-          <h6>Humidity: __%</h6>
-        </div>
-        <div class="rain-animation"></div> <!-- Raindrop Animation Container -->
-      </div>
-      <div class="days-forecast">
-        <h2>5-Day Forecast</h2>
-        <ul class="weather-cards">
-          <li class="card">
-            <h3>( ______ )</h3>
-            <h6>Temp: __C</h6>
-            <h6>Wind: __ M/S</h6>
-            <h6>Humidity: __%</h6>
-          </li>
-          <li class="card">
-            <h3>( ______ )</h3>
-            <h6>Temp: __C</h6>
-            <h6>Wind: __ M/S</h6>
-            <h6>Humidity: __%</h6>
-          </li>
-          <li class="card">
-            <h3>( ______ )</h3>
-            <h6>Temp: __C</h6>
-            <h6>Wind: __ M/S</h6>
-            <h6>Humidity: __%</h6>
-          </li>
-          <li class="card">
-            <h3>( ______ )</h3>
-            <h6>Temp: __C</h6>
-            <h6>Wind: __ M/S</h6>
-            <h6>Humidity: __%</h6>
-          </li>
-          <li class="card">
-            <h3>( ______ )</h3>
-            <h6>Temp: __C</h6>
-            <h6>Wind: __ M/S</h6>
-            <h6>Humidity: __%</h6>
-          </li>
-        </ul>
-      </div>
+    <div class="weather-data" id="weather-data">
+      <!-- Weather data will be injected here -->
     </div>
   </div>
+
   <script>
-    const cityInput = document.querySelector(".city-input");
-    const searchButton = document.querySelector(".search-btn");
-    const locationButton = document.querySelector(".location-btn");
-    const currentWeatherDiv = document.querySelector(".current-weather");
-    const weatherCardsDiv = document.querySelector(".weather-cards");
-    const rainAnimationDiv = document.querySelector(".rain-animation");
+    const apiKey = 'eb598c768375941e4132d7fec878c58c'; // Replace with your OpenWeatherMap API key
 
-    const API_KEY = "eb598c768375941e4132d7fec878c58c"; // API key for OpenWeatherMap API
-
-    const createWeatherCard = (cityName, weatherItem, index) => {
-      if (index === 0) { // HTML for the main weather card
-        return `<div class="details">
-                    <h2>${cityName} (${weatherItem.dt_txt.split(" ")[0]})</h2>
-                    <h6>Temperature: ${(weatherItem.main.temp - 273.15).toFixed(2)}°C</h6>
-                    <h6>Wind: ${weatherItem.wind.speed} M/S</h6>
-                    <h6>Humidity: ${weatherItem.main.humidity}%</h6>
-                </div>
-                <div class="icon">
-                    <img src="https://openweathermap.org/img/wn/${weatherItem.weather[0].icon}@4x.png" alt="weather-icon">
-                    <h6>${weatherItem.weather[0].description}</h6>
-                </div>`;
-      } else { // HTML for the other five day forecast card
-        return `<li class="card">
-                    <h3>(${weatherItem.dt_txt.split(" ")[0]})</h3>
-                    <img src="https://openweathermap.org/img/wn/${weatherItem.weather[0].icon}@4x.png" alt="weather-icon">
-                    <h6>Temp: ${(weatherItem.main.temp - 273.15).toFixed(2)}°C</h6>
-                    <h6>Wind: ${weatherItem.wind.speed} M/S</h6>
-                    <h6>Humidity: ${weatherItem.main.humidity}%</h6>
-                </li>`;
+    function getWeather() {
+      const city = document.getElementById('city').value;
+      if (city) {
+        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`)
+          .then(response => response.json())
+          .then(data => displayWeather(data));
       }
     }
 
-    const getWeatherDetails = (cityName, latitude, longitude) => {
-      const WEATHER_API_URL = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`;
-
-      fetch(WEATHER_API_URL).then(response => response.json()).then(data => {
-        // Filter the forecasts to get only one forecast per day
-        const uniqueForecastDays = [];
-        const fiveDaysForecast = data.list.filter(forecast => {
-          const forecastDate = new Date(forecast.dt_txt).getDate();
-          if (!uniqueForecastDays.includes(forecastDate)) {
-            return uniqueForecastDays.push(forecastDate);
-          }
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position => {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+          fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`)
+            .then(response => response.json())
+            .then(data => displayWeather(data));
         });
-
-        // Clearing previous weather data
-        cityInput.value = "";
-        currentWeatherDiv.innerHTML = "";
-        weatherCardsDiv.innerHTML = "";
-
-        // Creating weather cards and adding them to the DOM
-        fiveDaysForecast.forEach((weatherItem, index) => {
-          const html = createWeatherCard(cityName, weatherItem, index);
-          if (index === 0) {
-            currentWeatherDiv.insertAdjacentHTML("beforeend", html);
-          } else {
-            weatherCardsDiv.insertAdjacentHTML("beforeend", html);
-          }
-        });
-
-        // Add rain animation if raining
-        const isRaining = fiveDaysForecast[0].weather[0].main.toLowerCase().includes("rain");
-        if (isRaining) {
-          addRainAnimation();
-        } else {
-          removeRainAnimation();
-        }
-      }).catch(() => {
-        alert("An error occurred while fetching the weather forecast!");
-      });
-    }
-
-    const getCityCoordinates = () => {
-      const cityName = cityInput.value.trim();
-      if (cityName === "") return;
-      const API_URL = `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${API_KEY}`;
-
-      // Get entered city coordinates (latitude, longitude, and name) from the API response
-      fetch(API_URL).then(response => response.json()).then(data => {
-        if (!data.length) return alert(`No coordinates found for ${cityName}`);
-        const { lat, lon, name } = data[0];
-        getWeatherDetails(name, lat, lon);
-      }).catch(() => {
-        alert("An error occurred while fetching the coordinates!");
-      });
-    }
-
-    const getUserCoordinates = () => {
-      navigator.geolocation.getCurrentPosition(
-        position => {
-          const { latitude, longitude } = position.coords; // Get coordinates of user location
-          // Get city name from coordinates using reverse geocoding API
-          const API_URL = `https://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=${API_KEY}`;
-          fetch(API_URL).then(response => response.json()).then(data => {
-            const { name } = data[0];
-            getWeatherDetails(name, latitude, longitude);
-          }).catch(() => {
-            alert("An error occurred while fetching the city name!");
-          });
-        },
-        error => { // Show alert if user denied the location permission
-          if (error.code === error.PERMISSION_DENIED) {
-            alert("Geolocation request denied. Please reset location permission to grant access again.");
-          } else {
-            alert("Geolocation request error. Please reset location permission.");
-          }
-        });
-    }
-
-    const addRainAnimation = () => {
-      rainAnimationDiv.innerHTML = ""; // Clear previous raindrops
-      for (let i = 0; i < 100; i++) {
-        const drop = document.createElement("div");
-        drop.classList.add("drop");
-        drop.style.left = `${Math.random() * 100}%`;
-        drop.style.animationDuration = `${Math.random() * 0.5 + 0.5}s`;
-        rainAnimationDiv.appendChild(drop);
       }
     }
 
-    const removeRainAnimation = () => {
-      rainAnimationDiv.innerHTML = ""; // Clear raindrops
+    function displayWeather(data) {
+      const weatherData = document.getElementById('weather-data');
+      const icon = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+      const weatherHTML = `
+        <div class="current-weather">
+          <div>
+            <h2>${data.name}, ${data.sys.country}</h2>
+            <h6>${new Date().toLocaleDateString()}</h6>
+            <h6>Temperature: ${data.main.temp}°C</h6>
+            <h6>Humidity: ${data.main.humidity}%</h6>
+            <h6>Wind: ${data.wind.speed} m/s</h6>
+          </div>
+          <div class="icon">
+            <img src="${icon}" alt="Weather Icon">
+            <h6>${data.weather[0].description}</h6>
+          </div>
+        </div>
+      `;
+      weatherData.innerHTML = weatherHTML;
+      getForecast(data.coord.lat, data.coord.lon);
     }
 
-    locationButton.addEventListener("click", getUserCoordinates);
-    searchButton.addEventListener("click", getCityCoordinates);
-    cityInput.addEventListener("keyup", e => e.key === "Enter" && getCityCoordinates());
+    function getForecast(lat, lon) {
+      fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`)
+        .then(response => response.json())
+        .then(data => displayForecast(data));
+    }
+
+    function displayForecast(data) {
+      const forecastData = document.getElementById('weather-data');
+      const forecastHTML = `
+        <div class="days-forecast">
+          <h2>5-Day Forecast</h2>
+          <div class="weather-cards">
+            ${data.list.filter(item => item.dt_txt.endsWith('00:00:00')).map(day => `
+              <div class="card">
+                <h3>${new Date(day.dt * 1000).toLocaleDateString('en-US', { weekday: 'long' })}</h3>
+                <h3>${day.main.temp}°C</h3>
+                <h6>${day.weather[0].description}</h6>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+      forecastData.innerHTML += forecastHTML;
+    }
   </script>
 </body>
 
