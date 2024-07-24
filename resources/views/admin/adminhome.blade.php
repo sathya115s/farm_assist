@@ -62,6 +62,7 @@
 <body>
     
     <div class="container mt-3">
+        
         <div class="text-center mb-5">
             <h3 class="section-title">Farm Information</h3>
         </div>

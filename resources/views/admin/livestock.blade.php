@@ -9,9 +9,11 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #a5dae2;
+    margin: 0;
+    padding: 30px;
+    background-image: url(images/livestock_background.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
         }
 
         .container {
