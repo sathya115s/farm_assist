@@ -13,7 +13,7 @@
             /* justify-content: center; */
             align-items: center;
             /* height: 100vh; */
-            overflow: hidden;
+            overflow: scroll;
             background-color: #f0f0f0;
             margin: 0;
         }
@@ -50,19 +50,36 @@
         .card-img-top:hover {
             opacity: 0.8;
         }
-        nav{
+
+        nav {
             width: 100%;
         }
-        .min-h-screen{
+
+        .min-h-screen {
             min-height: 0vh !important;
+        }
+        li{
+            list-style-type: none;
         }
     </style>
 </head>
 
 <body>
-    
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-md">
+            <a class="navbar-brand" href="#">FARMING MANAGEMENT APP</a>
+            @if (Auth::check())
+                <li>
+                    <form method="post" action="{{ route('logout') }}">
+                        @csrf
+                        <button class="btn btn-primary">LOGOUT ({{ Auth::user()->name }})</button>
+                    </form>
+                </li>
+            @endif
+        </div>
+    </nav>
     <div class="container mt-3">
-        
+
         <div class="text-center mb-5">
             <h3 class="section-title">Farm Information</h3>
         </div>

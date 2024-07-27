@@ -6,21 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LiveStock Page</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <style>
         body {
             font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 30px;
-    background-image: url(images/livestock_background.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
+            margin: 0;
+            background-image: url(images/livestock_background.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
         }
 
         .container {
             max-width: 600px;
             margin: 0 auto;
             background: rgba(255, 255, 255, 0.2);
-            padding: 20px;
             border-radius: 16px;
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(10px);
@@ -50,6 +50,8 @@
             margin-bottom: 15px;
             opacity: 0;
             animation: fadeIn 1s forwards 0.75s;
+            /* display: flex; */
+            /* justify-content: space-between; */
         }
 
         .form-group label {
@@ -132,10 +134,37 @@
         .hidden {
             display: none;
         }
+
+        li {
+            list-style-type: none;
+        }
+
+        .vaccinated input {
+            width: auto;
+            margin-right: 5px;
+        }
+
+        .form-group.vaccinated {
+            display: flex;
+            /* justify-content: start; */
+        }
     </style>
 </head>
 
 <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-md">
+            <a class="navbar-brand" href="#">FARMING MANAGEMENT APP</a>
+            @if (Auth::check())
+                <li>
+                    <form method="post" action="{{ route('logout') }}">
+                        @csrf
+                        <button class="btn btn-primary">LOGOUT ({{ Auth::user()->name }})</button>
+                    </form>
+                </li>
+            @endif
+        </div>
+    </nav>
     <div class="container">
         <h2>Animal Information</h2>
         <div class="success-message">Livestock added successfully</div>
@@ -153,10 +182,16 @@
                 <label for="color">Color:</label>
                 <input type="color" id="color" name="color" required value="#ff0000">
             </div>
-            <div class="form-group">
+            <div class="form-group vaccinated">
                 <label>Vaccinated:</label>
-                <input type="radio" id="vaccinated-yes" name="vaccinated" value="yes" required> Yes
-                <input type="radio" id="vaccinated-no" name="vaccinated" value="no" required> No
+                <div class="d-flex align-items-center">
+                    <input type="radio" id="vaccinated-yes" name="vaccinated" value="yes" required>
+                    <label for="vaccinated-yes">Yes</label>
+                </div>
+                <div class="d-flex align-items-center">
+                    <input type="radio" id="vaccinated-no" name="vaccinated" value="no" required>
+                    <label for="vaccinated-no">No</label>
+                </div>
             </div>
             <div class="form-group hidden" id="vaccination-date-group">
                 <label for="vaccination-date">Vaccination Date:</label>

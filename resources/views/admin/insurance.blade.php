@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Government Insurance for Farmers</title>
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -90,21 +93,39 @@
         p {
             line-height: 1.6;
         }
+
+        li{
+            list-style-type: none;
+        }
     </style>
 </head>
 
 <body>
-    <header>
-        <h1>Government Insurance for Farmers</h1>
-    </header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-md">
+            <a class="navbar-brand" href="#">FARMING MANAGEMENT APP</a>
+            @if (Auth::check())
+                <li>
+                    <form method="post" action="{{ route('logout') }}">
+                        @csrf
+                        <button class="btn btn-primary">LOGOUT ({{ Auth::user()->name }})</button>
+                    </form>
+                </li>
+            @endif
+        </div>
+    </nav>
     <main>
         <section id="insurance-options">
             <a href="https://tnhorticulture.tn.gov.in/Pmfby" class="insurance-link" target="_self">Crop Insurance</a>
-            <a href="https://www.hdfcergo.com/commercial-insurance/cattle-insurance-policy" class="insurance-link" target="_self">Cattle Insurance</a>
-            <a href="https://agritech.tnau.ac.in/animal_husbandry/major%20acti_ah%20insurance.html" class="insurance-link" target="_self">Livestock
+            <a href="https://www.hdfcergo.com/commercial-insurance/cattle-insurance-policy" class="insurance-link"
+                target="_self">Cattle Insurance</a>
+            <a href="https://agritech.tnau.ac.in/animal_husbandry/major%20acti_ah%20insurance.html"
+                class="insurance-link" target="_self">Livestock
                 Insurance</a>
-            <a href="http://www.agritech.tnau.ac.in/crop_insurance/crop_wbcis.html" class="insurance-link" target="_self">Weather Insurance</a>
-            <a href="https://nationalinsurance.nic.co.in/en/pradhan-mantri-fasal-bima-yojana-pmfby#:~:text=Same%20can%20be%20downloaded%20from,PMFBY)%20%E2%80%93%20Elaborated%20here%20under." class="insurance-link">Health Insurance for Farmers</a>
+            <a href="http://www.agritech.tnau.ac.in/crop_insurance/crop_wbcis.html" class="insurance-link"
+                target="_self">Weather Insurance</a>
+            <a href="https://nationalinsurance.nic.co.in/en/pradhan-mantri-fasal-bima-yojana-pmfby#:~:text=Same%20can%20be%20downloaded%20from,PMFBY)%20%E2%80%93%20Elaborated%20here%20under."
+                class="insurance-link">Health Insurance for Farmers</a>
         </section>
 
         <section id="livestock-insurance" class="insurance-section">

@@ -57,9 +57,25 @@
         .list-group-item{
             color: black;
         }
+        li{
+            list-style-type: none;
+        }
     </style>
 </head>
 <body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-md">
+            <a class="navbar-brand" href="#">FARMING MANAGEMENT APP</a>
+            @if (Auth::check())
+                <li>
+                    <form method="post" action="{{ route('logout') }}">
+                        @csrf
+                        <button class="btn btn-primary">LOGOUT ({{ Auth::user()->name }})</button>
+                    </form>
+                </li>
+            @endif
+        </div>
+    </nav>
     <div class="container mt-5 animate__animated animate__fadeIn">
         <h1 class="text-center">Farm Activity Schedule</h1>
         <div class="form-group">
