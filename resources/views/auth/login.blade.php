@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FARM ASSIST</title>
-  <link rel="icon" type="image/png" href="images/farm-logo.svg">    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="icon" type="image/png" href="images/farm-logo.svg">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <style>
         body {
@@ -47,7 +48,7 @@
 
         .form-icon {
             position: absolute;
-            right: 10px;
+            left: 10px;
             top: 50%;
             transform: translateY(-50%);
             color: #6c757d;
@@ -67,7 +68,8 @@
             border: 1px solid rgba(255, 255, 255, 0.3);
             padding: 20px;
         } */
-        .col-sm-10,.col-md-8 .col-lg-5 .col-xl-5 .col-xxl-3{
+        .col-sm-10,
+        .col-md-8 .col-lg-5 .col-xl-5 .col-xxl-3 {
             background: rgba(255, 255, 255, 0.2);
             border-radius: 16px;
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -75,6 +77,22 @@
             -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.3);
             padding: 20px;
+        }
+
+        .form-control {
+            display: block;
+            width: 100%;
+            height: calc(1.5em + .75rem + 2px);
+            padding: .375rem .75rem .375rem 30px !important;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #495057;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            border-radius: .25rem;
+            transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
         }
     </style>
 </head>

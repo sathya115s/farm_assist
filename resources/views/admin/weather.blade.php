@@ -7,7 +7,7 @@
   <link rel="icon" type="image/png" href="images/farm-logo.svg">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
   <style>
     /* Import Google font - Open Sans */
     @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap');
@@ -209,10 +209,12 @@
       0% {
         transform: scale(0.95);
       }
+
       70% {
         transform: scale(1);
         box-shadow: 0 0 50px rgba(255, 223, 0, 0.7);
       }
+
       100% {
         transform: scale(0.95);
       }
@@ -222,6 +224,7 @@
       from {
         opacity: 0;
       }
+
       to {
         opacity: 1;
       }
@@ -232,6 +235,7 @@
         transform: translateY(-100px);
         opacity: 0;
       }
+
       to {
         transform: translateY(0);
         opacity: 1;
@@ -243,6 +247,7 @@
         transform: scale(0.8);
         opacity: 0;
       }
+
       to {
         transform: scale(1);
         opacity: 1;
@@ -306,26 +311,32 @@
         font-size: 0.9rem;
       }
     }
-    li{
-            list-style-type: none;
-        }
+
+    li {
+      list-style-type: none;
+    }
+    
+
+    nav{
+      background-color: #92E341;
+    }
   </style>
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-md">
-            <a class="navbar-brand" href="#">FARMING MANAGEMENT APP</a>
-            @if (Auth::check())
-                <li>
-                    <form method="post" action="{{ route('logout') }}">
-                        @csrf
-                        <button class="btn btn-primary">LOGOUT ({{ Auth::user()->name }})</button>
-                    </form>
-                </li>
-            @endif
-        </div>
-    </nav>
+  <nav class="navbar navbar-expand-lg navbar-light ">
+    <div class="container-md">
+      <a class="navbar-brand" href="#">FARMING MANAGEMENT APP</a>
+      @if (Auth::check())
+      <li>
+      <form method="post" action="{{ route('logout') }}">
+        @csrf
+        <button class="btn">LOGOUT ({{ Auth::user()->name }})</button>
+      </form>
+      </li>
+    @endif
+    </div>
+  </nav>
   <div class="container">
     <div class="weather-input">
       <h3>Check the Weather Forecast</h3>

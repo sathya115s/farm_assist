@@ -148,25 +148,28 @@
             display: flex;
             /* justify-content: start; */
         }
+        nav{
+            background-color: #92E341;
+        }
     </style>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-md">
             <a class="navbar-brand" href="#">FARMING MANAGEMENT APP</a>
             @if (Auth::check())
                 <li>
                     <form method="post" action="{{ route('logout') }}">
                         @csrf
-                        <button class="btn btn-primary">LOGOUT ({{ Auth::user()->name }})</button>
+                        <button class="btn">LOGOUT ({{ Auth::user()->name }})</button>
                     </form>
                 </li>
             @endif
         </div>
     </nav>
-    <div class="container">
-        <h2>Animal Information</h2>
+    <div class="container mt-5">
+        <h2 class="mt-2">Animal Information</h2>
         <div class="success-message">Livestock added successfully</div>
         <div class="error-message">An error occurred. Please try again.</div>
         <form id="livestock-form" method="post" enctype="multipart/form-data">

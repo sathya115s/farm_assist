@@ -156,7 +156,7 @@
     }
 
     .header__nav__content {
-      flex: 8;
+      flex:1;
       display: flex;
       align-items: center;
 

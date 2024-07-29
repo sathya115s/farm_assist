@@ -60,17 +60,20 @@
         li{
             list-style-type: none;
         }
+        nav{
+            background-color: #92E341;
+        }
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light ">
         <div class="container-md">
             <a class="navbar-brand" href="#">FARMING MANAGEMENT APP</a>
             @if (Auth::check())
                 <li>
                     <form method="post" action="{{ route('logout') }}">
                         @csrf
-                        <button class="btn btn-primary">LOGOUT ({{ Auth::user()->name }})</button>
+                        <button class="btn">LOGOUT ({{ Auth::user()->name }})</button>
                     </form>
                 </li>
             @endif

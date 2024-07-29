@@ -53,6 +53,7 @@
 
         nav {
             width: 100%;
+            background-color: #92E341 ;
         }
 
         .min-h-screen {
@@ -65,14 +66,14 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light ">
         <div class="container-md">
             <a class="navbar-brand" href="#">FARMING MANAGEMENT APP</a>
             @if (Auth::check())
                 <li>
                     <form method="post" action="{{ route('logout') }}">
                         @csrf
-                        <button class="btn btn-primary">LOGOUT ({{ Auth::user()->name }})</button>
+                        <button class="btn ">LOGOUT ({{ Auth::user()->name }})</button>
                     </form>
                 </li>
             @endif
@@ -118,7 +119,7 @@
             <!-- Market Price Information Card -->
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card">
-                    <a href="marketprice.html">
+                    <a href="{{route('market_price')}}">
                         <img src="images/marketprice.jpeg" class="card-img-top" alt="Market Price Image">
                     </a>
                     <div class="card-header">

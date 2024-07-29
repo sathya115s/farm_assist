@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AgricultureController;
 use App\Http\Controllers\CropactivitiesController;
 use App\Http\Controllers\CropController;
 use App\Http\Controllers\LivestockController;
@@ -8,6 +9,8 @@ use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InsuranceController;
 use App\Http\Controllers\WeatherController;
+use App\Http\Controllers\MarketpriceController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -62,3 +65,9 @@ Route::get('/livestock',[LivestockController::class,'show_livestock'])->name('sh
 
 Route::get('/show_livestock',[LivestockController::class,'show']);
 Route::post('/add_cattel',[LivestockController::class,'add'])->name('add_livestock');
+
+//agriculture practice
+Route::get('/agriculture_practice',[AgricultureController::class,'agriculture']);
+
+//marketprice
+Route::get('/market_price',[MarketpriceController::class,'market_price'])->name('market_price');
