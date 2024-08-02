@@ -62,6 +62,44 @@
         li{
             list-style-type: none;
         }
+
+
+        @media (max-width: 768px) {
+    .col-lg-4,
+    .col-md-6 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .card-img-top {
+        height: 150px; /* Reduce the image height for mobile */
+    }
+
+    .card-body {
+        padding: 15px;
+    }
+
+    .card-header {
+        font-size: 1.2em; /* Increase the header font size for better readability */
+    }
+
+    .navbar .navbar-brand {
+        font-size: 1.4em; /* Adjust navbar brand font size for mobile */
+    }
+
+    .navbar .btn {
+        font-size: 0.9em; /* Adjust the logout button font size */
+    }
+
+    .section-title {
+        font-size: 1.5em; /* Adjust the title size for mobile */
+    }
+
+    .container {
+        padding: 0 15px; /* Add padding to container for mobile */
+    }
+}
+
     </style>
 </head>
 
@@ -149,7 +187,7 @@
             <!-- Finance Information Card -->
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card">
-                    <a href="finance.html">
+                    <a href="{{route('show_finance_page')}}">
                         <img src="images/finance.avif" class="card-img-top" alt="Finance Image">
                     </a>
                     <div class="card-header">

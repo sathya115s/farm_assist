@@ -3,6 +3,7 @@
 use App\Http\Controllers\AgricultureController;
 use App\Http\Controllers\CropactivitiesController;
 use App\Http\Controllers\CropController;
+use App\Http\Controllers\FinanceCOntroller;
 use App\Http\Controllers\LivestockController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LoginController;
@@ -71,3 +72,6 @@ Route::get('/agriculture_practice',[AgricultureController::class,'agriculture'])
 
 //marketprice
 Route::get('/market_price',[MarketpriceController::class,'market_price'])->name('market_price');
+
+
+Route::get('/show_finance',[FinanceCOntroller::class,'show_finance_page'])->name('show_finance_page');
