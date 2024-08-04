@@ -46,13 +46,24 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             padding: 1.5em;
             width: calc(33.333% - 2em);
-            /* Adjust for gap and padding */
             text-align: center;
             text-decoration: none;
             color: #0288d1;
             font-weight: bold;
             box-sizing: border-box;
             transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+        }
+
+        @media (max-width: 992px) {
+            .insurance-link {
+                width: calc(50% - 2em);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .insurance-link {
+                width: 100%;
+            }
         }
 
         .insurance-link:hover {
@@ -101,9 +112,9 @@
         #insurance-options a {
             text-decoration: none;
         }
-        nav{
-            background-color: #92E341
-            ;
+
+        nav {
+            background-color: #92E341;
         }
     </style>
 </head>
@@ -133,11 +144,13 @@
                 target="_self">Weather Insurance</a>
             <a href="https://nationalinsurance.nic.co.in/en/pradhan-mantri-fasal-bima-yojana-pmfby#:~:text=Same%20can%20be%20downloaded%20from,PMFBY)%20%E2%80%93%20Elaborated%20here%20under."
                 class="insurance-link">Health Insurance for Farmers</a>
-           
-            <a href="https://www.aicofindia.com/AICEng/Pages/Sericulture.aspx" class="insurance-link">Sericulture Insurance</a>
+
+            <a href="https://www.aicofindia.com/AICEng/Pages/Sericulture.aspx" class="insurance-link">Sericulture
+                Insurance</a>
             <a href="https://htminsurance.ca/" class="insurance-link">Farmers’ Accident Insurance Scheme</a>
             <a href="https://agriinsurance.com/Agri-Insurance-Types/agri-machinery-insurance.html" class="insurance-link">Farm Machinery Insurance</a>
-            <a href="https://nationalinsurance.nic.co.in/en/rural-insurance/poultry-insurance-scheme" class="insurance-link">Poultry Insurance</a>
+            <a href="https://nationalinsurance.nic.co.in/en/rural-insurance/poultry-insurance-scheme"
+                class="insurance-link">Poultry Insurance</a>
         </section>
 
         <section id="livestock-insurance" class="insurance-section">
@@ -160,9 +173,6 @@
             <p>Details about farm vehicle insurance can be added here.</p>
         </section>
     </main>
-    <!-- <footer>
-        <p>&copy; 2024 Government Insurance Programs</p>
-    </footer> -->
     <script>
         function showSection(sectionId) {
             const sections = document.querySelectorAll('.insurance-section');

@@ -156,7 +156,7 @@
     }
 
     .header__nav__content {
-      flex:1;
+      flex: 1;
       display: flex;
       align-items: center;
 
@@ -351,10 +351,10 @@
 
     .opportunities__body {
       display: flex;
-    /* flex-wrap: wrap; */
-    grid-gap: 12.5rem;
-    align-self: baseline;
-    justify-content: center;
+      /* flex-wrap: wrap; */
+      grid-gap: 12.5rem;
+      align-self: baseline;
+      justify-content: center;
     }
 
     .opportunity {
@@ -733,7 +733,7 @@
       border: none;
       background-color: $fern;
       color: $white;
-   
+
       &.disable {
         background-color: $white;
         color: $outer-space;
@@ -1140,8 +1140,7 @@
     <header>
       <nav class="header__nav w-120">
         <div class="header__logo">
-          <img src="images/farm-assist-logo.jpg"
-            alt="Logo">
+          <img src="images/farm-assist-logo.jpg" alt="Logo">
         </div>
         <div class="header__nav__content">
           <div class="nav-close-icon"></div>
@@ -1185,50 +1184,63 @@
     </header>
 
     <section class="hero w-120">
-    <div class="hero__content">
+      <div class="hero__content">
         <div class="hero__text">
-            <h1 class="hero__title">Efficient Farm Management Made Easy</h1>
-            <p class="hero__description">
-                Farm Assist helps farmers manage their crops, livestock, and finances with real-time weather updates, market prices, agricultural best practices, and access to loans and insurance.
-            </p>
-            <!-- <a href="#" class="btn btn__hero">Get Started</a> -->
+          <h1 class="hero__title">Efficient Farm Management Made Easy</h1>
+          <p class="hero__description">
+            Farm Assist helps farmers manage their crops, livestock, and finances with real-time weather updates, market
+            prices, agricultural best practices, and access to loans and insurance.
+          </p>
+          <!-- <a href="#" class="btn btn__hero">Get Started</a> -->
         </div>
         <div class="hero__img">
-            <img src="https://raw.githubusercontent.com/mustafadalga/farm-landing-page/master/assets/img/hero.png" alt="Farm Assist Image">
+          <img src="https://raw.githubusercontent.com/mustafadalga/farm-landing-page/master/assets/img/hero.png"
+            alt="Farm Assist Image">
         </div>
-    </div>
-</section>
+      </div>
+    </section>
 
-<section class="opportunities">
-    <div class="opportunities__img">
-        <img src="https://raw.githubusercontent.com/mustafadalga/farm-landing-page/master/assets/img/leaf.png" alt="Leaf Image">
-    </div>
-    <div class="opportunities__content w-105">
+    <section class="opportunities">
+      <div class="opportunities__img">
+        <img src="https://raw.githubusercontent.com/mustafadalga/farm-landing-page/master/assets/img/leaf.png"
+          alt="Leaf Image">
+      </div>
+      <div class="opportunities__content w-105">
         <div class="opportunities__head">
-            <h2 class="opportunities__title">Farm Management Opportunities</h2>
-            <p class="opportunities__description">Explore how our farm management solutions can help you optimize operations, enhance sustainability, and connect with agricultural experts.</p>
+          <h2 class="opportunities__title">Farm Management Opportunities</h2>
+          <p class="opportunities__description">Explore how our farm management solutions can help you optimize
+            operations, enhance sustainability, and connect with agricultural experts.</p>
         </div>
         <div class="opportunities__body">
-            <div class="opportunity">
-                <img src="https://raw.githubusercontent.com/mustafadalga/farm-landing-page/master/assets/img/opportunites/opportunity-1.svg" alt="Icon" class="opportunity__icon">
-                <h4 class="opportunity__title">Connect with Agricultural Experts</h4>
-                <p class="opportunity__description">Gain access to a network of agricultural experts who can provide valuable insights and guidance to help you manage your farm effectively.</p>
-            </div>
-            <div class="opportunity ">
-                <img src="https://raw.githubusercontent.com/mustafadalga/farm-landing-page/master/assets/img/opportunites/opportunity-2.svg" alt="Icon" class="opportunity__icon">
-                <h4 class="opportunity__title">Optimize Farm Operations</h4>
-                <p class="opportunity__description">Use our advanced tools and techniques to streamline your farm operations, improve productivity, and maximize yields.</p>
-            </div>
-            <div class="opportunity">
-                <img src="https://raw.githubusercontent.com/mustafadalga/farm-landing-page/master/assets/img/opportunites/opportunity-3.svg" alt="Icon" class="opportunity__icon">
-                <h4 class="opportunity__title">Enhance Sustainability</h4>
-                <p class="opportunity__description">Implement sustainable farming practices that protect the environment, conserve resources, and promote long-term viability of your farm.</p>
-            </div>
+          <div class="opportunity">
+            <img
+              src="https://raw.githubusercontent.com/mustafadalga/farm-landing-page/master/assets/img/opportunites/opportunity-1.svg"
+              alt="Icon" class="opportunity__icon">
+            <h4 class="opportunity__title">Connect with Agricultural Experts</h4>
+            <p class="opportunity__description">Gain access to a network of agricultural experts who can provide
+              valuable insights and guidance to help you manage your farm effectively.</p>
+          </div>
+          <div class="opportunity ">
+            <img
+              src="https://raw.githubusercontent.com/mustafadalga/farm-landing-page/master/assets/img/opportunites/opportunity-2.svg"
+              alt="Icon" class="opportunity__icon">
+            <h4 class="opportunity__title">Optimize Farm Operations</h4>
+            <p class="opportunity__description">Use our advanced tools and techniques to streamline your farm
+              operations, improve productivity, and maximize yields.</p>
+          </div>
+          <div class="opportunity">
+            <img
+              src="https://raw.githubusercontent.com/mustafadalga/farm-landing-page/master/assets/img/opportunites/opportunity-3.svg"
+              alt="Icon" class="opportunity__icon">
+            <h4 class="opportunity__title">Enhance Sustainability</h4>
+            <p class="opportunity__description">Implement sustainable farming practices that protect the environment,
+              conserve resources, and promote long-term viability of your farm.</p>
+          </div>
         </div>
-    </div>
-</section>
+      </div>
+    </section>
 
-    
+
 
     <!-- <section class="how-is-works w-120">
       <div class="works__content">
@@ -1454,10 +1466,10 @@
     </section> -->
 
     <footer class="footer">
-    <p class="footer_copyright">
-                © Copyright 2024. Sudhar.
-            </p>
-</footer>
+      <p class="footer_copyright">
+        © Copyright 2024. Sudhar.
+      </p>
+    </footer>
   </div>
   <script src="assets/js/main.js" type="module"></script>
   <script>

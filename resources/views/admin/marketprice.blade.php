@@ -12,8 +12,6 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #f8f9fa;
-            margin: 0;
-            padding: 0;
             color: #333;
         }
 
@@ -25,7 +23,7 @@
         }
 
         main {
-            padding: 2rem;
+            padding: 2rem 1rem;
         }
 
         table {
@@ -34,16 +32,11 @@
             margin-top: 1rem;
         }
 
-        table,
         th,
         td {
-            border: 1px solid #ddd;
-        }
-
-        th,
-        td {
-            padding: 1rem;
+            padding: 0.75rem;
             text-align: left;
+            border: 1px solid #ddd;
         }
 
         th {
@@ -76,56 +69,74 @@
         <div class="container-md">
             <a class="navbar-brand" href="#">FARMING MANAGEMENT APP</a>
             @if (Auth::check())
-                <li>
-                    <form method="post" action="{{ route('logout') }}">
-                        @csrf
-                        <button class="btn">LOGOUT ({{ Auth::user()->name }})</button>
-                    </form>
-                </li>
+            <li>
+                <form method="post" action="{{ route('logout') }}">
+                    @csrf
+                    <button class="btn">LOGOUT ({{ Auth::user()->name }})</button>
+                </form>
+            </li>
             @endif
         </div>
     </nav>
 
-    <main>
-        <h2>Select City</h2>
-        <select id="city-select" class="form-control">
-            <option value="">Select City</option>
-            <option value="chennai">Chennai</option>
-            <option value="mumbai">Mumbai</option>
-            <option value="delhi">Delhi</option>
-        </select>
+    <main class="container">
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <h2>Select City</h2>
+                <select id="city-select" class="form-control">
+                    <option value="">Select City</option>
+                    <option value="chennai">Chennai</option>
+                    <option value="mumbai">Mumbai</option>
+                    <option value="delhi">Delhi</option>
+                </select>
+            </div>
+        </div>
 
-        <h2>Fruit Prices</h2>
-        <table id="fruit-prices-table">
-            <thead>
-                <tr>
-                    <th>Fruit</th>
-                    <th>kg</th>
-                    <th>Retail Price (INR)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Fruit data will be inserted here by JavaScript -->
-            </tbody>
-        </table>
+        <div class="row mt-4">
+            <div class="col-12">
+                <h2>Fruit Prices</h2>
+                <div class="table-responsive">
+                    <table id="fruit-prices-table" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Fruit</th>
+                                <th>kg</th>
+                                <th>Retail Price (INR)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Fruit data will be inserted here by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
 
-        <h2>Vegetable Prices</h2>
-        <table id="vegetable-prices-table">
-            <thead>
-                <tr>
-                    <th>Vegetable</th>
-                    <th>kg</th>
-                    <th>Retail Price (INR)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Vegetable data will be inserted here by JavaScript -->
-            </tbody>
-        </table>
+        <div class="row mt-4">
+            <div class="col-12">
+                <h2>Vegetable Prices</h2>
+                <div class="table-responsive">
+                    <table id="vegetable-prices-table" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Vegetable</th>
+                                <th>kg</th>
+                                <th>Retail Price (INR)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Vegetable data will be inserted here by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </main>
+
     <!-- <footer>
         <p>&copy; 2024 Market Prices App</p>
     </footer> -->
+
     <!-- <script src="script.js"></script> -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {

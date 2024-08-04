@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CropactivitiesController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LivestockController;
+use App\Http\Controllers\IncomeController;
 
 
 /*
@@ -32,3 +33,5 @@ Route::get('/show_cattle',[LivestockController::class,'show']);
 //livestock part
 Route::get('/livestock',[LivestockController::class,'show_livestock'])->name('show_livestock');
 Route::get('/show_livestock',[LivestockController::class,'show']);
+
+Route::get('/get_analytics', [IncomeController::class, 'getAnalytics']);
