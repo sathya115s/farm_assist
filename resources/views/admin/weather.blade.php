@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <title>FARM ASSIST</title>
-  <link rel="icon" type="image/png" href="images/farm-logo.svg">
+  <!-- <link rel="icon" type="image/png" href="images/farm-logo.svg"> -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
@@ -315,17 +315,26 @@
     li {
       list-style-type: none;
     }
-    
 
-    nav{
+
+    nav {
       background-color: #92E341;
+    }
+
+    footer {
+      background-color: #92E341;
+      color: black;
+      text-align: center;
+      padding: 0.5em;
+      box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+      margin-top: 2em;
     }
   </style>
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light ">
-    <div class="container-md">
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container-fluid">
       <a class="navbar-brand" href="#">FARMING MANAGEMENT APP</a>
       @if (Auth::check())
       <li>
@@ -349,7 +358,13 @@
       <!-- Weather data will be injected here -->
     </div>
   </div>
-
+  <div>
+    <footer class="footer">
+      <p class="footer_copyright" style="text-align:center">
+        © Copyright 2024. Sudhar.
+      </p>
+    </footer>
+  </div>
   <script>
     const apiKey = 'eb598c768375941e4132d7fec878c58c'; // Replace with your OpenWeatherMap API key
 

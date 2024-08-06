@@ -148,15 +148,25 @@
             display: flex;
             /* justify-content: start; */
         }
-        nav{
+
+        nav {
             background-color: #92E341;
+        }
+
+        footer {
+            background-color: #92E341;
+            color: black;
+            text-align: center;
+            padding: 0.5em;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 2em;
         }
     </style>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container-md">
+        <div class="container-fluid">
             <a class="navbar-brand" href="#">FARMING MANAGEMENT APP</a>
             @if (Auth::check())
                 <li>
@@ -221,7 +231,13 @@
             </div>
         </form>
     </div>
-
+    <div>
+        <footer class="footer">
+            <p class="footer_copyright" style="text-align:center">
+                © Copyright 2024. Sudhar.
+            </p>
+        </footer>
+    </div>
     <!-- Include jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>

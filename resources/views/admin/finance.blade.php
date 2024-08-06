@@ -95,6 +95,15 @@
                 font-size: 0.9rem;
             }
         }
+
+        footer {
+            background-color: #92E341;
+            color: black;
+            text-align: center;
+            padding: 0.5em;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 2em;
+        }
     </style>
 </head>
 
@@ -214,6 +223,15 @@
 
     </div>
 
+
+    <div>
+        <footer class="footer">
+            <p class="footer_copyright" style="text-align:center">
+                © Copyright 2024. Sudhar.
+            </p>
+        </footer>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
         let pieChart;
@@ -290,62 +308,62 @@
 
 
         function fetchIncomeItems() {
-        $.ajax({
-            type: "GET",
-            url: "/get_income_items",  // Replace with your Laravel route to fetch farm items for income
-            dataType: "json",
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function (response) {
-                var farmIncomeSelect = $('#incomeItem');
-                farmIncomeSelect.empty();
-                farmIncomeSelect.append('<option value="">Select farm item</option>'); // Default option
-                if (response.farmItems) {
-                    response.farmItems.forEach(function (item) {
-                        farmIncomeSelect.append(`<option value="${item.id}">${item.name_of_product}</option>`);
-                    });
+            $.ajax({
+                type: "GET",
+                url: "/get_income_items",  // Replace with your Laravel route to fetch farm items for income
+                dataType: "json",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function (response) {
+                    var farmIncomeSelect = $('#incomeItem');
+                    farmIncomeSelect.empty();
+                    farmIncomeSelect.append('<option value="">Select farm item</option>'); // Default option
+                    if (response.farmItems) {
+                        response.farmItems.forEach(function (item) {
+                            farmIncomeSelect.append(`<option value="${item.id}">${item.name_of_product}</option>`);
+                        });
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Ajax error:", xhr.responseText);
                 }
-            },
-            error: function (xhr, status, error) {
-                console.error("Ajax error:", xhr.responseText);
-            }
-        });
-    }
+            });
+        }
 
-    // Trigger fetchIncomeItems when the income source is selected
-    $(document).ready(function () {
-        $('#incomeSource').on('change', function () {
-            if ($(this).val() === 'sale') {
-                fetchIncomeItems();
-            } else {
-                $('#incomeItem').empty();
-                $('#incomeItem').append('<option value="">Select farm item</option>');
-            }
+        // Trigger fetchIncomeItems when the income source is selected
+        $(document).ready(function () {
+            $('#incomeSource').on('change', function () {
+                if ($(this).val() === 'sale') {
+                    fetchIncomeItems();
+                } else {
+                    $('#incomeItem').empty();
+                    $('#incomeItem').append('<option value="">Select farm item</option>');
+                }
+            });
         });
-    });
 
-    // Function to submit the income form data via AJAX
-    function submitIncome() {
-        var formData = $('#incomeForm').serialize();
-        $.ajax({
-            type: "POST",
-            url: "/add_income",  // Replace with your Laravel route to submit income
-            data: formData,
-            dataType: "json",
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function (response) {
-                alert('Income added successfully!');
-                location.reload();
-                updateAnalytics();
-            },
-            error: function (error) {
-                console.log('Error submitting income:', error);
-            }
-        });
-    }
+        // Function to submit the income form data via AJAX
+        function submitIncome() {
+            var formData = $('#incomeForm').serialize();
+            $.ajax({
+                type: "POST",
+                url: "/add_income",  // Replace with your Laravel route to submit income
+                data: formData,
+                dataType: "json",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function (response) {
+                    alert('Income added successfully!');
+                    location.reload();
+                    updateAnalytics();
+                },
+                error: function (error) {
+                    console.log('Error submitting income:', error);
+                }
+            });
+        }
 
         function submitSetup() {
             var formData = $('#setupForm').serialize();

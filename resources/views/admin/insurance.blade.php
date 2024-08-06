@@ -87,14 +87,12 @@
         }
 
         footer {
-            background-color: #0288d1;
-            color: white;
+            background-color: #92E341;
+            color: black;
             text-align: center;
-            padding: 1.5em;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
+            padding: 0.5em;
             box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 2em;
         }
 
         h2 {
@@ -121,15 +119,15 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container-md">
+        <div class="container-fluid">
             <a class="navbar-brand" href="#">FARMING MANAGEMENT APP</a>
             @if (Auth::check())
-            <li>
-                <form method="post" action="{{ route('logout') }}">
-                    @csrf
-                    <button class="btn">LOGOUT ({{ Auth::user()->name }})</button>
-                </form>
-            </li>
+                <li>
+                    <form method="post" action="{{ route('logout') }}">
+                        @csrf
+                        <button class="btn">LOGOUT ({{ Auth::user()->name }})</button>
+                    </form>
+                </li>
             @endif
         </div>
     </nav>
@@ -148,7 +146,8 @@
             <a href="https://www.aicofindia.com/AICEng/Pages/Sericulture.aspx" class="insurance-link">Sericulture
                 Insurance</a>
             <a href="https://htminsurance.ca/" class="insurance-link">Farmers’ Accident Insurance Scheme</a>
-            <a href="https://agriinsurance.com/Agri-Insurance-Types/agri-machinery-insurance.html" class="insurance-link">Farm Machinery Insurance</a>
+            <a href="https://agriinsurance.com/Agri-Insurance-Types/agri-machinery-insurance.html"
+                class="insurance-link">Farm Machinery Insurance</a>
             <a href="https://nationalinsurance.nic.co.in/en/rural-insurance/poultry-insurance-scheme"
                 class="insurance-link">Poultry Insurance</a>
         </section>
@@ -173,6 +172,15 @@
             <p>Details about farm vehicle insurance can be added here.</p>
         </section>
     </main>
+
+
+    <div>
+        <footer class="footer">
+            <p class="footer_copyright" style="text-align:center">
+                © Copyright 2024. Sudhar.
+            </p>
+        </footer>
+    </div>
     <script>
         function showSection(sectionId) {
             const sections = document.querySelectorAll('.insurance-section');

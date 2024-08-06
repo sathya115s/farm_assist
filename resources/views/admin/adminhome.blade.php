@@ -13,7 +13,7 @@
             /* justify-content: center; */
             align-items: center;
             /* height: 100vh; */
-            overflow: scroll;
+            overflow-y: scroll;
             background-color: #f0f0f0;
             margin: 0;
         }
@@ -53,65 +53,85 @@
 
         nav {
             width: 100%;
-            background-color: #92E341 ;
+            background-color: #92E341;
         }
 
         .min-h-screen {
             min-height: 0vh !important;
         }
-        li{
+
+        li {
             list-style-type: none;
         }
 
 
         @media (max-width: 768px) {
-    .col-lg-4,
-    .col-md-6 {
-        flex: 0 0 100%;
-        max-width: 100%;
-    }
 
-    .card-img-top {
-        height: 150px; /* Reduce the image height for mobile */
-    }
+            .col-lg-4,
+            .col-md-6 {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
 
-    .card-body {
-        padding: 15px;
-    }
+            .card-img-top {
+                height: 150px;
+                /* Reduce the image height for mobile */
+            }
 
-    .card-header {
-        font-size: 1.2em; /* Increase the header font size for better readability */
-    }
+            .card-body {
+                padding: 15px;
+            }
 
-    .navbar .navbar-brand {
-        font-size: 1.4em; /* Adjust navbar brand font size for mobile */
-    }
+            .card-header {
+                font-size: 1.2em;
+                /* Increase the header font size for better readability */
+            }
 
-    .navbar .btn {
-        font-size: 0.9em; /* Adjust the logout button font size */
-    }
+            .navbar .navbar-brand {
+                font-size: 1.4em;
+                /* Adjust navbar brand font size for mobile */
+            }
 
-    .section-title {
-        font-size: 1.5em; /* Adjust the title size for mobile */
-    }
+            .navbar .btn {
+                font-size: 0.9em;
+                /* Adjust the logout button font size */
+            }
 
-    .container {
-        padding: 0 15px; /* Add padding to container for mobile */
-    }
-}
+            .section-title {
+                font-size: 1.5em;
+                /* Adjust the title size for mobile */
+            }
 
+            .container {
+                padding: 0 15px;
+                /* Add padding to container for mobile */
+            }
+
+            /* .footer_copyright p{
+                text-align: center;
+            } */
+        }
+
+        footer {
+            background-color: #92E341;
+            color: black;
+            text-align: center;
+            padding: 0.5em;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 2em;
+        }
     </style>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light ">
-        <div class="container-md">
+<nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
             <a class="navbar-brand" href="#">FARMING MANAGEMENT APP</a>
             @if (Auth::check())
                 <li>
                     <form method="post" action="{{ route('logout') }}">
                         @csrf
-                        <button class="btn ">LOGOUT ({{ Auth::user()->name }})</button>
+                        <button class="btn">LOGOUT ({{ Auth::user()->name }})</button>
                     </form>
                 </li>
             @endif
@@ -214,6 +234,14 @@
                 </div>
             </div>
         </div>
+
+    </div>
+    <div>
+        <footer class="footer">
+            <p class="footer_copyright" style="text-align:center">
+                © Copyright 2024. Sudhar.
+            </p>
+        </footer>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
