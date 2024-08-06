@@ -110,6 +110,7 @@
         li {
             list-style-type: none;
         }
+
         footer {
             background-color: #92E341;
             color: white;
@@ -118,14 +119,15 @@
             box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
             margin-top: 2em;
         }
-        .practice-card{
+
+        .practice-card {
             margin-right: 10px;
         }
     </style>
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-light">
+    <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">FARMING MANAGEMENT APP</a>
             @if (Auth::check())
@@ -142,79 +144,82 @@
         <section class="practice row">
             <div class="col-lg-4 col-md-6 col-sm-12">
                 <div class="practice-card">
-                <h3>Soil Preparation</h3>
-                <p>Preparing the soil involves plowing, leveling, and adding organic matter to create a suitable
-                    environment for seeds.</p>
-                <a href="https://www.youtube.com/watch?v=yQGwGXQi3n4" class="video-link" target="_blank"></a>
-                <iframe src="https://www.youtube.com/embed/yQGwGXQi3n4" frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen></iframe>
+                    <h3>Soil Preparation</h3>
+                    <p>Preparing the soil involves plowing, leveling, and adding organic matter to create a suitable
+                        environment for seeds.</p>
+                    <a href="https://www.youtube.com/watch?v=yQGwGXQi3n4" class="video-link" target="_blank"></a>
+                    <iframe src="https://www.youtube.com/embed/yQGwGXQi3n4" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 col-sm-12">
-               <div class="practice-card">
-               <h3>Sowing</h3>
-                <p>Sowing involves planting seeds at the right depth and spacing to ensure optimal growth and yield.</p>
-                <a href="https://www.youtube.com/watch?v=Sdx54YgNS0c" class="video-link" target="_blank"></a>
-                <iframe src="https://www.youtube.com/embed/Sdx54YgNS0c" frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen></iframe>
-               </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-12">
                 <div class="practice-card">
-                <h3>Irrigation</h3>
-                <p>Irrigation provides the necessary water to crops at various growth stages to ensure healthy
-                    development.</p>
-                <a href="https://www.youtube.com/watch?v=pTBcK9zOAFk" class="video-link" target="_blank"></a>
-                <iframe src="https://www.youtube.com/embed/pTBcK9zOAFk" frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen></iframe>
-                </div>
-                
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-12">
-                <div class="practice-card">
-                <h3>Fertilizing</h3>
-                <p>Applying fertilizers helps provide essential nutrients that crops need to grow and produce yields.
-                </p>
-                <a href="https://www.youtube.com/watch?v=aRmT4JAQP_Y" class="video-link" target="_blank"></a>
-                <iframe src="https://www.youtube.com/embed/aRmT4JAQP_Y" frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen></iframe>
+                    <h3>Sowing</h3>
+                    <p>Sowing involves planting seeds at the right depth and spacing to ensure optimal growth and yield.
+                    </p>
+                    <a href="https://www.youtube.com/watch?v=Sdx54YgNS0c" class="video-link" target="_blank"></a>
+                    <iframe src="https://www.youtube.com/embed/Sdx54YgNS0c" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 col-sm-12">
-               <div class="practice-card">
-               <h3>Weeding</h3>
-                <p>Weeding involves removing unwanted plants that compete with crops for nutrients, water, and sunlight.
-                </p>
-                <a href="https://www.youtube.com/watch?v=jvaivzrr-kU" class="video-link" target="_blank"></a>
-                <iframe src="https://www.youtube.com/embed/jvaivzrr-kU" frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen></iframe>
-               </div>
+                <div class="practice-card">
+                    <h3>Irrigation</h3>
+                    <p>Irrigation provides the necessary water to crops at various growth stages to ensure healthy
+                        development.</p>
+                    <a href="https://www.youtube.com/watch?v=pTBcK9zOAFk" class="video-link" target="_blank"></a>
+                    <iframe src="https://www.youtube.com/embed/pTBcK9zOAFk" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                </div>
             </div>
             <div class="col-lg-4 col-md-6 col-sm-12">
                 <div class="practice-card">
-                <h3>Pest Control</h3>
-                <p>Using various methods to control pests that can damage crops and reduce yields.</p>
-                <a href="https://www.youtube.com/watch?v=OKWH3I29UZY" class="video-link" target="_blank"></a>
-                <iframe src="https://www.youtube.com/embed/OKWH3I29UZY" frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen></iframe>
+                    <h3>Fertilizing</h3>
+                    <p>Applying fertilizers helps provide essential nutrients that crops need to grow and produce
+                        yields.
+                    </p>
+                    <a href="https://www.youtube.com/watch?v=aRmT4JAQP_Y" class="video-link" target="_blank"></a>
+                    <iframe src="https://www.youtube.com/embed/aRmT4JAQP_Y" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="practice-card">
+                    <h3>Weeding</h3>
+                    <p>Weeding involves removing unwanted plants that compete with crops for nutrients, water, and
+                        sunlight.
+                    </p>
+                    <a href="https://www.youtube.com/watch?v=jvaivzrr-kU" class="video-link" target="_blank"></a>
+                    <iframe src="https://www.youtube.com/embed/jvaivzrr-kU" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="practice-card">
+                    <h3>Pest Control</h3>
+                    <p>Using various methods to control pests that can damage crops and reduce yields.</p>
+                    <a href="https://www.youtube.com/watch?v=OKWH3I29UZY" class="video-link" target="_blank"></a>
+                    <iframe src="https://www.youtube.com/embed/OKWH3I29UZY" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 col-sm-12
             ">
                 <div class="practice-card">
-                <h3>Harvesting</h3>
-                <p>Harvesting is the process of gathering mature crops from the fields, ensuring they are collected at
-                    the right time for optimal quality.</p>
-                <a href="https://www.youtube.com/watch?v=a50k3V9Igfg" class="video-link" target="_blank"></a>
-                <iframe src="https://www.youtube.com/embed/a50k3V9Igfg" frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen></iframe>
+                    <h3>Harvesting</h3>
+                    <p>Harvesting is the process of gathering mature crops from the fields, ensuring they are collected
+                        at
+                        the right time for optimal quality.</p>
+                    <a href="https://www.youtube.com/watch?v=a50k3V9Igfg" class="video-link" target="_blank"></a>
+                    <iframe src="https://www.youtube.com/embed/a50k3V9Igfg" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
                 </div>
             </div>
         </section>
