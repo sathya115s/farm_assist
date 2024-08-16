@@ -328,6 +328,9 @@
       padding: 0.5em;
       box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
       margin-top: 2em;
+      position: absolute;
+      top: 89%;
+      width: 100%;
     }
   </style>
 </head>

@@ -83,7 +83,11 @@
             text-align: center;
             padding: 0.5em;
             box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
-            margin-top: 2em;
+            /* margin-top: 235px; */
+        }
+
+        .div-footer{
+            margin-top: 233px;
         }
     </style>
 </head>
@@ -119,7 +123,7 @@
         <h2 class="mt-5">Activities Schedule</h2>
         <div id="activitySchedule" class="animate__animated"></div>
     </div>
-    <div>
+    <div class="div-footer">
         <footer class="footer">
             <p class="footer_copyright" style="text-align:center">
                 © Copyright 2024. Sudhar.
