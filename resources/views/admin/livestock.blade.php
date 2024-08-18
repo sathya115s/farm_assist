@@ -12,13 +12,12 @@
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            background-image: url(images/livestock_background.jpg);
             background-size: cover;
             background-repeat: no-repeat;
         }
 
         .container {
-            max-width: 600px;
+            max-width: 800px;
             margin: 0 auto;
             background: rgba(255, 255, 255, 0.2);
             border-radius: 16px;
@@ -50,8 +49,6 @@
             margin-bottom: 15px;
             opacity: 0;
             animation: fadeIn 1s forwards 0.75s;
-            /* display: flex; */
-            /* justify-content: space-between; */
         }
 
         .form-group label {
@@ -146,7 +143,6 @@
 
         .form-group.vaccinated {
             display: flex;
-            /* justify-content: start; */
         }
 
         nav {
@@ -160,6 +156,23 @@
             padding: 0.5em;
             box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
             margin-top: 2em;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        table th,
+        table td {
+            text-align: center;
+        }
+        textarea{
+            width: 100%;
         }
     </style>
 </head>
@@ -231,61 +244,233 @@
             </div>
         </form>
     </div>
-    <div>
-        <footer class="footer">
-            <p class="footer_copyright" style="text-align:center">
-                © Copyright 2024. Sudhar.
-            </p>
-        </footer>
+
+    <!-- New section for displaying animals -->
+    <div class="">
+        <h2 class="mt-2">Animal List</h2>
+        <div class="table-container">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Birthdate</th>
+                        <th>Color</th>
+                        <th>Feeding Time</th>
+                        <th>Gender</th>
+                        <th>Image</th>
+                        <th>Prescription</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="animal-list">
+                    <!-- Dynamic content will be loaded here -->
+                </tbody>
+            </table>
+        </div>
     </div>
-    <!-- Include jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <!-- Edit Form Modal -->
+    <div class="modal fade" id="editAnimalModal" tabindex="-1" aria-labelledby="editAnimalModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editAnimalModalLabel">Edit Animal</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="edit-livestock-form">
+                        <input type="hidden" id="edit-animal-id">
+                        <div class="form-group">
+                            <label for="edit-animal-name">Animal Name:</label>
+                            <input type="text" id="edit-animal-name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-birthdate">Birthdate:</label>
+                            <input type="date" id="edit-birthdate" name="birthdate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-color">Color:</label>
+                            <input type="color" id="edit-color" name="color" required>
+                        </div>
+                        <div class="form-group vaccinated">
+                            <label>Vaccinated:</label>
+                            <div class="d-flex align-items-center">
+                                <input type="radio" id="edit-vaccinated-yes" name="vaccinated" value="yes">
+                                <label for="edit-vaccinated-yes">Yes</label>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <input type="radio" id="edit-vaccinated-no" name="vaccinated" value="no">
+                                <label for="edit-vaccinated-no">No</label>
+                            </div>
+                        </div>
+                        <div class="form-group hidden" id="edit-vaccination-date-group">
+                            <label for="edit-vaccination-date">Vaccination Date:</label>
+                            <input type="date" id="edit-vaccination-date" name="vaccinated_date">
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-feeding-time">Feeding Time:</label>
+                            <input type="time" id="edit-feeding-time" name="feeding_time" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-gender">Gender:</label>
+                            <select id="edit-gender" name="gender" required>
+                                <option value="">Select Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-image">Upload New Image:</label>
+                            <input type="file" id="edit-image" name="image" accept="image/*">
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-prescription">Prescription:</label>
+                            <textarea id="edit-prescription" name="prescription" rows="3"
+                                placeholder="Enter prescription details here..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2024 Farm Management App. All rights reserved.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+
     <script>
-        $(document).ready(function () {
-            $('input[name="vaccinated"]').change(function () {
-                if ($('#vaccinated-yes').is(':checked')) {
-                    $('#vaccination-date-group').removeClass('hidden');
-                } else {
-                    $('#vaccination-date-group').addClass('hidden');
-                    $('#vaccination-date').val(''); // Clear the vaccination date value
+    $(document).ready(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        // Load animals into table
+        function loadAnimals() {
+            $.ajax({
+                url: '{{ url('/show_livestock') }}',
+                type: 'GET',
+                success: function (response) {
+                    var animalList = $('#animal-list');
+                    animalList.empty(); // Clear existing rows
+                    if (response.animals && response.animals.length) {
+                        $.each(response.animals, function (index, animal) {
+                            animalList.append(
+                                '<tr>' +
+                                '<td>' + animal.id + '</td>' +
+                                '<td>' + animal.name + '</td>' +
+                                '<td>' + animal.birthdate + '</td>' +
+                                '<td>' + animal.color + '</td>' +
+                                '<td>' + animal.feeding_time + '</td>' +
+                                '<td>' + animal.gender + '</td>' +
+                                '<td><img src="' + animal.image + '" width="100" height="100"></td>' +
+                                '<td>' + (animal.prescription || 'No prescription details available') + '</td>' +
+                                '<td><button class="btn btn-primary btn-sm edit-btn" data-id="' + animal.id + '">Edit</button></td>' +
+                                '</tr>'
+                            );
+                        });
+                    } else {
+                        animalList.append('<tr><td colspan="9">No animals found</td></tr>');
+                    }
+                },
+                error: function (response) {
+                    console.error('Error:', response);
+                    alert('An error occurred. Please try again.');
                 }
             });
+        }
 
-            $('#livestock-form').on('submit', function (e) {
-                e.preventDefault();
+        // Load animals on page load
+        loadAnimals();
 
-                var formData = new FormData(this);
-                formData.append('_token', $('meta[name="csrf-token"]').attr('content'));
+        // Show/hide vaccination date field based on vaccination status
+        $('input[name="vaccinated"]').change(function () {
+            if ($(this).val() === 'yes') {
+                $('#vaccination-date-group').removeClass('hidden');
+            } else {
+                $('#vaccination-date-group').addClass('hidden');
+            }
+        });
 
-                // If vaccinated-no is checked, remove vaccinated_date from formData
-                if ($('#vaccinated-no').is(':checked')) {
-                    formData.delete('vaccinated_date');
-                }
+        // Handle edit button click
+        $(document).on('click', '.edit-btn', function () {
+            var id = $(this).data('id'); // Get the ID from a data attribute
 
-                $.ajax({
-                    type: "POST",
-                    url: "{{ route('add_livestock') }}",
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function (response) {
-                        if (response.status === 200) {
-                            alert('Livestock added successfully.');
-                            location.reload();
-                            $('#livestock-form')[0].reset(); // Reset the form
-                            $('#vaccination-date-group').addClass('hidden'); // Hide the vaccination date field
+            $.ajax({
+                url: '/edit_livestock/' + id,
+                method: 'GET',
+                success: function (response) {
+                    if (response) {
+                        // Populate modal with the animal data
+                        $('#edit-animal-id').val(response.id);
+                        $('#edit-animal-name').val(response.name);
+                        $('#edit-birthdate').val(response.birthdate);
+                        $('#edit-color').val(response.color);
+                        $('#edit-feeding-time').val(response.feeding_time);
+                        $('#edit-gender').val(response.gender);
+                        $('#edit-prescription').val(response.prescription);
+
+                        if (response.vaccinated === 'yes') {
+                            $('#edit-vaccinated-yes').prop('checked', true);
+                            $('#edit-vaccination-date-group').removeClass('hidden');
+                            $('#edit-vaccination-date').val(response.vaccinated_date);
                         } else {
-                            alert('Message: ' + response.message);
+                            $('#edit-vaccinated-no').prop('checked', true);
+                            $('#edit-vaccination-date-group').addClass('hidden');
                         }
-                    },
-                    error: function (xhr, status, error) {
-                        alert('An error occurred. Please try again.');
-                        console.error(xhr.responseText);
+
+                        // Show the modal
+                        $('#editAnimalModal').modal('show');
+                    } else {
+                        console.error('Unexpected response format:', response);
                     }
-                });
+                },
+                error: function (xhr, status, error) {
+                    console.error('AJAX error:', error);
+                    console.error('Response text:', xhr.responseText);
+                    alert('Failed to load animal data. Please try again.');
+                }
             });
         });
-    </script>
+
+        // Handle the edit form submission
+        $('#edit-livestock-form').submit(function (e) {
+            e.preventDefault();
+            var id = $('#edit-animal-id').val();
+            var formData = new FormData(this);
+            $.ajax({
+                url: '/update_livestock/' + id,
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    alert('Livestock updated successfully');
+                    $('#editAnimalModal').modal('hide'); // Hide the modal
+                    loadAnimals(); // Reload the animals list
+                },
+                error: function (response) {
+                    console.error('Error:', response);
+                    alert('An error occurred while updating livestock. Please try again.');
+                }
+            });
+        });
+    });
+</script>
+
 </body>
 
 </html>

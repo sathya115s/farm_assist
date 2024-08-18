@@ -9,6 +9,7 @@ use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\LivestockController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LoginController;
+use App\Models\Livetock;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InsuranceController;
 use App\Http\Controllers\WeatherController;
@@ -69,6 +70,10 @@ Route::get('/livestock',[LivestockController::class,'show_livestock'])->name('sh
 
 Route::get('/show_livestock',[LivestockController::class,'show']);
 Route::post('/add_cattel',[LivestockController::class,'add'])->name('add_livestock');
+// Route::get('/livestock/{id}', [LivestockController::class, 'show']);
+Route::get('/edit_livestock/{id}', [LivestockController::class, 'edit'])->name('edit_livestock');
+Route::post('/update_livestock/{id}', [LivestockController::class, 'update']);
+
 
 //agriculture practice
 Route::get('/agriculture_practice',[AgricultureController::class,'agriculture']);
