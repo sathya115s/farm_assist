@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Crop;
 use Illuminate\Http\Request;
 
 class CropController extends Controller
@@ -41,5 +42,10 @@ class CropController extends Controller
         $end = $months[$endMonth];
 
         return ($end >= $start) ? ($end - $start + 1) : (12 - $start + $end + 1);
+    }
+
+    public function getcrop(){
+        $getcrop=Crop::all();
+        return response()->json($getcrop);
     }
 }

@@ -53,6 +53,7 @@ Route::get('/livestock',[LivestockController::class,'show_livestock'])->name('sh
 
 Route::get('/show_livestock',[LivestockController::class,'show']);
 Route::post('/add_cattel',[LivestockController::class,'add'])->name('add_livestock');
+Route::post('/update/{id}', [LivestockController::class, 'updateReport']);
 
 //agriculture practice
 Route::get('/agriculture_practice',[AgricultureController::class,'agriculture']);

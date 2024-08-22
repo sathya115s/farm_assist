@@ -67,6 +67,7 @@
             border-radius: 4px;
             border: 1px solid #ccc;
             font-size: 14px;
+            color: black;
         }
 
         .form-group input:focus,
@@ -171,7 +172,8 @@
         table td {
             text-align: center;
         }
-        textarea{
+
+        textarea {
             width: 100%;
         }
     </style>
@@ -260,6 +262,7 @@
                         <th>Gender</th>
                         <th>Image</th>
                         <th>Prescription</th>
+                        <th>Report</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -277,7 +280,6 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editAnimalModalLabel">Edit Animal</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form id="edit-livestock-form">
@@ -325,11 +327,7 @@
                             <label for="edit-image">Upload New Image:</label>
                             <input type="file" id="edit-image" name="image" accept="image/*">
                         </div>
-                        <div class="form-group">
-                            <label for="edit-prescription">Prescription:</label>
-                            <textarea id="edit-prescription" name="prescription" rows="3"
-                                placeholder="Enter prescription details here..."></textarea>
-                        </div>
+
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">Update</button>
                         </div>
@@ -339,137 +337,246 @@
         </div>
     </div>
 
+    <!-- Doctor Number Modal -->
+    <div class="modal fade" id="doctorNumberModal" tabindex="-1" role="dialog" aria-labelledby="doctorNumberModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="doctorNumberModalLabel">Doctor Information</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="doctor-info-form">
+                                            <input type="hidden" id="livestock_id" value="2"> <!-- Hidden field for livestock ID -->
+
+                        <div class="form-group">
+                            <label for="doctor-name">Doctor Name:</label>
+                            <input type="text" id="doctor-name" name="doctor_name">
+                        </div>
+                        <div class="form-group">
+                            <label for="prescription">Prescription:</label>
+                            <textarea id="doctor-prescription" name="prescription"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Save </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <footer>
         <p>© 2024 Farm Management App. All rights reserved.</p>
     </footer>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <!-- Scripts -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-
-
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-    $(document).ready(function () {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        // Load animals into table
-        function loadAnimals() {
-            $.ajax({
-                url: '{{ url('/show_livestock') }}',
-                type: 'GET',
-                success: function (response) {
-                    var animalList = $('#animal-list');
-                    animalList.empty(); // Clear existing rows
-                    if (response.animals && response.animals.length) {
-                        $.each(response.animals, function (index, animal) {
-                            animalList.append(
-                                '<tr>' +
-                                '<td>' + animal.id + '</td>' +
-                                '<td>' + animal.name + '</td>' +
-                                '<td>' + animal.birthdate + '</td>' +
-                                '<td>' + animal.color + '</td>' +
-                                '<td>' + animal.feeding_time + '</td>' +
-                                '<td>' + animal.gender + '</td>' +
-                                '<td><img src="' + animal.image + '" width="100" height="100"></td>' +
-                                '<td>' + (animal.prescription || 'No prescription details available') + '</td>' +
-                                '<td><button class="btn btn-primary btn-sm edit-btn" data-id="' + animal.id + '">Edit</button></td>' +
-                                '</tr>'
-                            );
-                        });
-                    } else {
-                        animalList.append('<tr><td colspan="9">No animals found</td></tr>');
-                    }
-                },
-                error: function (response) {
-                    console.error('Error:', response);
-                    alert('An error occurred. Please try again.');
+        $(document).ready(function () {
+            // Set up CSRF token for AJAX requests
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-        }
 
-        // Load animals on page load
-        loadAnimals();
-
-        // Show/hide vaccination date field based on vaccination status
-        $('input[name="vaccinated"]').change(function () {
-            if ($(this).val() === 'yes') {
-                $('#vaccination-date-group').removeClass('hidden');
-            } else {
-                $('#vaccination-date-group').addClass('hidden');
-            }
-        });
-
-        // Handle edit button click
-        $(document).on('click', '.edit-btn', function () {
-            var id = $(this).data('id'); // Get the ID from a data attribute
-
-            $.ajax({
-                url: '/edit_livestock/' + id,
-                method: 'GET',
-                success: function (response) {
-                    if (response) {
-                        // Populate modal with the animal data
-                        $('#edit-animal-id').val(response.id);
-                        $('#edit-animal-name').val(response.name);
-                        $('#edit-birthdate').val(response.birthdate);
-                        $('#edit-color').val(response.color);
-                        $('#edit-feeding-time').val(response.feeding_time);
-                        $('#edit-gender').val(response.gender);
-                        $('#edit-prescription').val(response.prescription);
-
-                        if (response.vaccinated === 'yes') {
-                            $('#edit-vaccinated-yes').prop('checked', true);
-                            $('#edit-vaccination-date-group').removeClass('hidden');
-                            $('#edit-vaccination-date').val(response.vaccinated_date);
+            // Function to load animals into the table
+            function loadAnimals() {
+                $.ajax({
+                    url: '{{ url('/show_livestock') }}',
+                    type: 'GET',
+                    success: function (response) {
+                        var animalList = $('#animal-list');
+                        animalList.empty(); // Clear existing rows
+                        if (response.animals && response.animals.length) {
+                            $.each(response.animals, function (index, animal) {
+                                animalList.append(
+                                    '<tr>' +
+                                    '<td>' + animal.id + '</td>' +
+                                    '<td>' + animal.name + '</td>' +
+                                    '<td>' + animal.birthdate + '</td>' +
+                                    '<td>' + animal.color + '</td>' +
+                                    '<td>' + animal.feeding_time + '</td>' +
+                                    '<td>' + animal.gender + '</td>' +
+                                    '<td><img src="' + animal.image + '" width="100" height="100"></td>' +
+                                    '<td>' + (animal.prescription || 'No prescription details available') + '</td>' +
+                                    '<td><button class="btn btn-primary btn-sm doctor-number-btn" data-id="' + animal.id + '">Doctor Report</button></td>' +
+                                    '<td><button class="btn btn-primary btn-sm edit-btn" data-id="' + animal.id + '">Edit</button></td>' +
+                                    '</tr>'
+                                );
+                            });
                         } else {
-                            $('#edit-vaccinated-no').prop('checked', true);
-                            $('#edit-vaccination-date-group').addClass('hidden');
+                            animalList.append('<tr><td colspan="10">No animals found</td></tr>');
                         }
-
-                        // Show the modal
-                        $('#editAnimalModal').modal('show');
-                    } else {
-                        console.error('Unexpected response format:', response);
+                    },
+                    error: function (response) {
+                        console.error('Error:', response);
+                        alert('An error occurred. Please try again.');
                     }
-                },
-                error: function (xhr, status, error) {
-                    console.error('AJAX error:', error);
-                    console.error('Response text:', xhr.responseText);
-                    alert('Failed to load animal data. Please try again.');
-                }
-            });
-        });
+                });
+            }
 
-        // Handle the edit form submission
-        $('#edit-livestock-form').submit(function (e) {
-            e.preventDefault();
-            var id = $('#edit-animal-id').val();
-            var formData = new FormData(this);
-            $.ajax({
-                url: '/update_livestock/' + id,
-                type: 'POST',
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function (response) {
-                    alert('Livestock updated successfully');
-                    $('#editAnimalModal').modal('hide'); // Hide the modal
-                    loadAnimals(); // Reload the animals list
-                },
-                error: function (response) {
-                    console.error('Error:', response);
-                    alert('An error occurred while updating livestock. Please try again.');
+            // Load animals on page load
+            loadAnimals();
+
+            // Show/hide vaccination date field based on vaccination status
+            $('input[name="vaccinated"]').change(function () {
+                if ($(this).val() === 'yes') {
+                    $('#vaccination-date-group').removeClass('hidden');
+                } else {
+                    $('#vaccination-date-group').addClass('hidden');
                 }
             });
+
+            // Handle Doctor report button click
+            $(document).on('click', '.doctor-number-btn', function () {
+                var animalId = $(this).data('id');
+
+                $.ajax({
+                    url: '/get_doctor_info/' + animalId, // Adjust the URL to match your route
+                    type: 'get',
+                    data: {
+                        _token: $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function (response) {
+                        $('#doctor-name').val(response.doctor_name || '');
+                        $('#doctor-prescription').val(response.prescription || '');
+                        $('#livestock_id').val(animalId);
+                        $('#doctorNumberModal').modal('show');
+                    },
+                    error: function (response) {
+                        console.error('Error:', response);
+                        alert('Failed to fetch doctor information. Please try again.');
+                    }
+                });
+            });
+
+            // Handle edit button click
+            $(document).on('click', '.edit-btn', function () {
+                var id = $(this).data('id');
+
+                $.ajax({
+                    url: '/edit_livestock/' + id,
+                    method: 'GET',
+                    success: function (response) {
+                        if (response) {
+                            // Populate modal with the animal data
+                            $('#edit-animal-id').val(response.id);
+                            $('#edit-animal-name').val(response.name);
+                            $('#edit-birthdate').val(response.birthdate);
+                            $('#edit-color').val(response.color);
+                            $('#edit-feeding-time').val(response.feeding_time);
+                            $('#edit-gender').val(response.gender);
+
+                            if (response.vaccinated === 'yes') {
+                                $('#edit-vaccinated-yes').prop('checked', true);
+                                $('#edit-vaccination-date-group').removeClass('hidden');
+                                $('#edit-vaccination-date').val(response.vaccinated_date);
+                            } else {
+                                $('#edit-vaccinated-no').prop('checked', true);
+                                $('#edit-vaccination-date-group').addClass('hidden');
+                            }
+
+                            $('#editAnimalModal').modal('show');
+                        }
+                    },
+                    error: function (response) {
+                        console.error('Error:', response);
+                        alert('Failed to load animal data. Please try again.');
+                    }
+                });
+            });
+
+            // Handle livestock form submission
+            $('#livestock-form').submit(function (event) {
+                event.preventDefault();
+                var formData = new FormData(this);
+
+                $.ajax({
+                    url: '{{ url('/add_livestock') }}',
+                    type: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        if (response.success) {
+                            $('.success-message').show();
+                            loadAnimals(); // Refresh the list
+                            $('#livestock-form')[0].reset(); // Reset form
+                            $('#livestockModal').modal('hide');
+                        } else {
+                            alert('Failed to add livestock. Please try again.');
+                        }
+                    },
+                    error: function (response) {
+                        console.error('Error:', response);
+                        alert('An error occurred. Please try again.');
+                    }
+                });
+            });
+
+            // Handle edit livestock form submission
+            $('#edit-livestock-form').submit(function (event) {
+                event.preventDefault();
+                var formData = new FormData(this);
+
+                $.ajax({
+                    url: '{{ url('/update_livestock') }}',
+                    type: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        if (response.success) {
+                            $('.success-message').show();
+                            loadAnimals(); // Refresh the list
+                            $('#edit-livestock-form')[0].reset(); // Reset form
+                            $('#editAnimalModal').modal('hide');
+                        } else {
+                            alert('Failed to update livestock. Please try again.');
+                        }
+                    },
+                    error: function (response) {
+                        console.error('Error:', response);
+                        alert('An error occurred. Please try again.');
+                    }
+                });
+            });
+
+            // Handle doctor info form submission
+            $('#doctor-info-form').submit(function (event) {
+                event.preventDefault(); // Prevent the form from submitting the traditional way
+                var formData = $(this).serialize(); // Serialize form data
+                var id = $('#livestock_id').val(); // Get the value of the livestock_id field
+
+                $.ajax({
+                    url: '{{ url('/save_doctor_info') }}/' + id, // Construct the URL with the livestock_id
+                    type: 'POST', // HTTP method
+                    data: formData, // Data to send to the server
+                    success: function (response) {
+                        console.log('Success response:', response); // Log the response for debugging
+                        if (response.success) {
+                            console.log('Doctor information saved successfully.');
+                            location.reload(); // Refresh the page
+                            $('#doctorNumberModal').modal('hide'); // Hide the modal
+                        } else {
+                            alert('Doctor information saved successfully.'); 
+                            location.reload();// Alert if success is not true
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error:', error); // Log the error message for debugging
+                        alert('An error occurred. Please try again.'); // Alert for general errors
+                    }
+                });
+            });
+
         });
-    });
-</script>
+    </script>
 
 </body>
 

@@ -62,6 +62,9 @@ Route::get('/cropactivities',[CropactivitiesController::class,'getcropactivity']
 // Route::get('/getcropactivities/{crop}', [CropactivitiesController::class, 'getCropActivities']);
 Route::get('/getcropactivities/{crop}', [CropactivitiesController::class, 'getCropActivities']);
 
+
+//crop
+Route::get('getcrop',[CropController::class,'getcrop']);
 //insurance part
 Route::get('/insurance',[InsuranceController::class,'show_insurance'])->name('show_insurance');
 
@@ -73,10 +76,11 @@ Route::post('/add_cattel',[LivestockController::class,'add'])->name('add_livesto
 // Route::get('/livestock/{id}', [LivestockController::class, 'show']);
 Route::get('/edit_livestock/{id}', [LivestockController::class, 'edit'])->name('edit_livestock');
 Route::post('/update_livestock/{id}', [LivestockController::class, 'update']);
+Route::post('/add_doctor', [LivestockController::class, 'updateReport']);
 
+Route::get('/get_doctor_info/{id}', [LivestockController::class, 'getDoctorInfo']);
+Route::post('save_doctor_info/{id}',[LivestockController::class,'save_doctor_info'])->name('save_doctor_info');
 
-//agriculture practice
-Route::get('/agriculture_practice',[AgricultureController::class,'agriculture']);
 
 //marketprice
 Route::get('/market_price',[MarketpriceController::class,'market_price'])->name('market_price');

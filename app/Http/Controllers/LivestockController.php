@@ -69,51 +69,94 @@ class LivestockController extends Controller
         return response()->json(['animals' => $animals]);
     }
 
-//     public function show($id)
+    //     public function show($id)
 // {
 //     $livestock = Livetock::findOrFail($id);
 //     return response()->json($livestock);
 // }
 
 
-public function edit($id)
-{
-    $livestock = Livetock::findOrFail($id);
-    return response()->json($livestock);
-}
+    public function edit($id)
+    {
+        $livestock = Livetock::findOrFail($id);
+        return response()->json($livestock);
+    }
 
-// Update a specific livestock entry
-public function update(Request $request, $id)
+    // Update a specific livestock entry
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'birthdate' => 'required|date',
+            'color' => 'required|string|max:7',
+            'vaccinated' => 'required|string|in:yes,no',
+            'vaccinated_date' => 'nullable|date',
+            'feeding_time' => '|date_format:H:i',
+            'gender' => 'required|string|in:male,female',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $livestock = Livetock::findOrFail($id);
+        $livestock->name = $request->name;
+        $livestock->birthdate = $request->birthdate;
+        $livestock->color = $request->color;
+        $livestock->vaccinated = $request->vaccinated;
+        $livestock->vaccinated_date = $request->vaccinated_date;
+        $livestock->feeding_time = $request->feeding_time;
+        $livestock->gender = $request->gender;
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('public/images');
+            $livestock->image = basename($imagePath);
+        }
+
+        $livestock->save();
+
+        return response()->json(['message' => 'Livestock updated successfully']);
+    }
+
+
+public function getDoctorInfo($id){
+    $animal=Livetock::find($id);
+    return response()->json(['message'=>'fetched ',compact('animal')]);
+}
+    public function save_doctor_info(Request $request, $id)
 {
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'birthdate' => 'required|date',
-        'color' => 'required|string|max:7',
-        'vaccinated' => 'required|string|in:yes,no',
-        'vaccinated_date' => 'nullable|date',
-        'feeding_time' => '|date_format:H:i',
-        'gender' => 'required|string|in:male,female',
-        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    // Debugging: Log the ID being used
+    \Log::info('Looking for livestock with ID: ' . $id);
+
+    // Fetch the livestock record based on the ID
+    $livestock = Livetock::find($id);
+
+    // Check if the record exists
+    if (!$livestock) {
+        return response()->json(['error' => 'Livestock record not found'], 404);
+    }
+
+    // Validate the incoming request data
+    $validatedData = $request->validate([
+        'doctor_name' => 'nullable|string|max:255',
         'prescription' => 'nullable|string',
     ]);
 
-    $livestock = Livetock::findOrFail($id);
-    $livestock->name = $request->name;
-    $livestock->birthdate = $request->birthdate;
-    $livestock->color = $request->color;
-    $livestock->vaccinated = $request->vaccinated;
-    $livestock->vaccinated_date = $request->vaccinated_date;
-    $livestock->feeding_time = $request->feeding_time;
-    $livestock->gender = $request->gender;
-    $livestock->prescription = $request->prescription;
-
-    if ($request->hasFile('image')) {
-        $imagePath = $request->file('image')->store('public/images');
-        $livestock->image = basename($imagePath);
+    // Update the livestock record with new data if provided
+    if ($request->has('doctor_name')) {
+        $livestock->doctor_name = $request->input('doctor_name');
     }
 
+    if ($request->has('prescription')) {
+        $livestock->prescription = $request->input('prescription');
+    }
+
+    // Save changes to the database
     $livestock->save();
 
-    return response()->json(['message' => 'Livestock updated successfully']);
+    // Return the updated data as JSON
+    return response()->json([
+        'doctor_name' => $livestock->doctor_name,
+        'prescription' => $livestock->prescription
+    ]);
 }
+
+
 }
