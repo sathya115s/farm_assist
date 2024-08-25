@@ -68,3 +68,14 @@ Route::post('/add_expense', [FinanceController::class, 'addExpense']);
 Route::post('/add_setup', [FinanceController::class, 'addSetup']);
 Route::get('/get_analytics', [FinanceController::class, 'getAnalytics']);
 Route::get('/get_income_items', [FinanceController::class, 'getIncomeItems']);
+
+
+
+// Route to fetch all crops
+Route::get('/getcropactivities', [CropController::class, 'getCrops']);
+
+// Route to fetch activities for a selected crop
+Route::get('/getcrop/{cropName}', [CropController::class, 'getActivitiesForCrop']);
+
+// Route to fetch activity schedule based on selections
+Route::get('/getactivityschedule/{cropName}/{soilType}/{plantingType}', [CropController::class, 'getActivitySchedule']);

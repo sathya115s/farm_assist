@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\AgricultureController;
 use App\Http\Controllers\CropactivitiesController;
-use App\Http\Controllers\CropController;
+use App\Http\Controllers\CropdataController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\FinanceCOntroller;
 use App\Http\Controllers\IncomeController;
@@ -56,15 +56,26 @@ Route::get('/homepage',[LoginController::class,'home'])->name('homepage');
 Route::get('/show_weather_page',[WeatherController::class,'show_weather_page'])->name('show_weather_page');
 
 //crop part
-Route::get('/showcrop',[CropController::class,'showcrop'])->name('showcrop');
+Route::get('/showcrop',[CropdataController::class,'showcrop'])->name('showcrop');
 
 Route::get('/cropactivities',[CropactivitiesController::class,'getcropactivity'])->name('cropactivities');
 // Route::get('/getcropactivities/{crop}', [CropactivitiesController::class, 'getCropActivities']);
 Route::get('/getcropactivities/{crop}', [CropactivitiesController::class, 'getCropActivities']);
 
 
-//crop
-Route::get('getcrop',[CropController::class,'getcrop']);
+
+// Route to fetch all crops
+Route::get('/getcropactivities', [CropdataController::class, 'getCrops']);
+
+// Route to fetch activities for a selected crop
+Route::get('/getcrop/{cropName}', [CropdataController::class, 'getActivitiesForCrop']);
+
+// Route to fetch activity schedule based on selections
+Route::get('/getactivityschedule/{cropName}/{soilType}/{plantingType}', [CropdataController::class, 'getActivitySchedule']);
+
+
+
+
 //insurance part
 Route::get('/insurance',[InsuranceController::class,'show_insurance'])->name('show_insurance');
 
@@ -85,10 +96,10 @@ Route::post('save_doctor_info/{id}',[LivestockController::class,'save_doctor_inf
 //marketprice
 Route::get('/market_price',[MarketpriceController::class,'market_price'])->name('market_price');
 
-Route::get('/show_finance', [FinanceController::class, 'show_finance'])->name('show_finance_page');
-Route::get('/get_finance', [FinanceController::class, 'getFinance']);
-Route::post('/add_income', [FinanceController::class, 'addIncome']);
-Route::post('/add_expense', [FinanceController::class, 'addExpense']);
-Route::post('/add_setup', [FinanceController::class, 'addSetup']);
-Route::get('/get_analytics', [FinanceController::class, 'getAnalytics']);
-Route::get('/get_income_items', [FinanceController::class, 'getIncomeItems']);
+Route::get('/show_finance', [FinanceCOntroller::class, 'show_finance'])->name('show_finance_page');
+Route::get('/get_finance', [FinanceCOntroller::class, 'getFinance']);
+Route::post('/add_income', [FinanceCOntroller::class, 'addIncome']);
+Route::post('/add_expense', [FinanceCOntroller::class, 'addExpense']);
+Route::post('/add_setup', [FinanceCOntroller::class, 'addSetup']);
+Route::get('/get_analytics', [FinanceCOntroller::class, 'getAnalytics']);
+Route::get('/get_income_items', [FinanceCOntroller::class, 'getIncomeItems']);

@@ -7,20 +7,21 @@ use App\Models\Farmsetup;
 use App\Models\Income;
 use App\Models\Expense;
 
-class FinanceController extends Controller
+class FinanceCOntroller extends Controller
 {
-    
-public function show_finance(){
-    return view('admin.finance');
-}
+
+    public function show_finance()
+    {
+        return view('admin.finance');
+    }
 
 
-// FinanceController.php
-public function getIncomeItems()
-{
-    $farmItems = Farmsetup::all(); // Adjust the model and query as needed
-    return response()->json(['farmItems' => $farmItems]);
-}
+    // FinanceController.php
+    public function getIncomeItems()
+    {
+        $farmItems = Farmsetup::all(); // Adjust the model and query as needed
+        return response()->json(['farmItems' => $farmItems]);
+    }
 
     public function getFinance()
     {

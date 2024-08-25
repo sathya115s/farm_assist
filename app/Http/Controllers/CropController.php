@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Crop;
+use App\Models\Cropactivities;
 use Illuminate\Http\Request;
 
 class CropController extends Controller
@@ -44,8 +45,41 @@ class CropController extends Controller
         return ($end >= $start) ? ($end - $start + 1) : (12 - $start + $end + 1);
     }
 
-    public function getcrop(){
-        $getcrop=Crop::all();
-        return response()->json($getcrop);
+    public function getCrops()
+    {
+        // Assuming you have a Crop model to fetch data
+        $crops = Crop::all(); // Adjust this query based on your actual data structure
+        return response()->json($crops);
+    }
+
+    // Fetch activities for a selected crop
+    public function getActivitiesForCrop($cropName)
+    {
+        // Fetch activities based on crop name
+        // Adjust this query based on your data structure
+        $crop = Crop::where('crop_name', $cropName)->first();
+        if (!$crop) {
+            return response()->json(['message' => 'Crop not found'], 404);
+        }
+
+        $activities = $crop->activities; // Assuming 'activities' is a relationship or attribute
+        return response()->json($activities);
+    }
+
+    // Fetch activity schedule based on all selections
+    public function getActivitySchedule($cropName, $soilType, $plantingType)
+    {
+        // Adjust this query based on your data structure
+        $crop = Crop::where('crop_name', $cropName)
+                    ->where('soil_type', $soilType)
+                    ->where('planting_type', $plantingType)
+                    ->first();
+
+        if (!$crop) {
+            return response()->json(['message' => 'Crop not found'], 404);
+        }
+
+        $activities = $crop->activities; // Fetch the activities based on your data structure
+        return response()->json($activities);
     }
 }

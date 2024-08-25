@@ -5,90 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FARM ASSIST</title>
-    <!-- <link rel="icon" type="image/png" href="images/farm-logo.svg"> -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <style>
-        body {
-            background: url('images/crops-bg.jpg') no-repeat center center fixed;
-            background-size: cover;
-            color: #fff;
-            font-family: 'Arial', sans-serif;
-        }
-
-        .container {
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(10px);
-            animation: fadeIn 1s ease-in-out;
-        }
-
-        h1 {
-            font-family: 'Georgia', serif;
-            font-weight: bold;
-            color: #2c3e50;
-        }
-
-        .form-group label {
-            font-weight: bold;
-            color: #34495e;
-        }
-
-        .btn-primary {
-            background-color: #2c3e50;
-            border: none;
-        }
-
-        .btn-primary:hover {
-            background-color: #34495e;
-        }
-
-        h2 {
-            font-family: 'Georgia', serif;
-            color: #2c3e50;
-        }
-
-        .list-group-item {
-            border: none;
-            border-bottom: 1px solid #dee2e6;
-        }
-
-        .list-group-item:last-child {
-            border-bottom: none;
-        }
-
-        .animate__animated {
-            visibility: visible;
-        }
-
-        .list-group-item {
-            color: black;
-        }
-
-        li {
-            list-style-type: none;
-        }
-
-        nav {
-            background-color: #92E341;
-        }
-
-        footer {
-            background-color: #92E341;
-            color: black;
-            text-align: center;
-            padding: 0.5em;
-            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
-            /* margin-top: 235px; */
-        }
-
-        .div-footer{
-            margin-top: 233px;
-        }
+        /* Your existing CSS styles */
     </style>
 </head>
 
@@ -112,6 +34,23 @@
             <label for="cropSelect">Select Crop:</label>
             <select class="form-control" id="cropSelect">
                 <option value="">Select an option</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="soilType">Select Soil Type:</label>
+            <select class="form-control" id="soilType">
+                <option value="">Select an option</option>
+                <option value="Light">Light</option>
+                <option value="Medium">Medium</option>
+                <option value="Heavy">Heavy</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="plantingType">Select Planting Type:</label>
+            <select class="form-control" id="plantingType">
+                <option value="">Select an option</option>
+                <option value="Direct Seeding">Direct Seeding</option>
+                <option value="Transplanting">Transplanting</option>
             </select>
         </div>
         <div class="form-group">
@@ -162,16 +101,23 @@
 
             document.getElementById('calculateButton').addEventListener('click', function () {
                 const selectedCrop = document.getElementById('cropSelect').value;
+                const soilType = document.getElementById('soilType').value;
+                const plantingType = document.getElementById('plantingType').value;
                 const startDate = document.getElementById('startDate').value;
 
-                if (!startDate) {
-                    alert('Please select a start date.');
+                if (!startDate || !selectedCrop || !soilType || !plantingType) {
+                    alert('Please select all the required options.');
                     return;
                 }
 
                 $.ajax({
-                    url: `/getcropactivities/` + selectedCrop, // Adjust URL to fetch activities for selected crop
+                    url: `/getcropactivities/${selectedCrop}`, // Adjust URL to fetch activities for selected crop
                     type: 'GET',
+                    data: {
+                        soil_type: soilType,
+                        type_of_planting: plantingType,
+                        start_date: startDate
+                    },
                     dataType: 'json',
                     success: function (activities) {
                         displayActivities(activities);

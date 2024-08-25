@@ -15,7 +15,6 @@
             color: #333;
         }
 
-
         li {
             list-style-type: none;
         }
@@ -212,25 +211,22 @@
         <div id="analytics" class="form-section">
             <h3>Analytics</h3>
             <div id="analyticsContent">
+                <div class="form-group">
+                    <label for="analyticsDate">Select Date</label>
+                    <input type="date" class="form-control" id="analyticsDate" name="analytics_date">
+                </div>
                 <p>Total Income: <span id="totalIncome">Rs.0.00</span></p>
                 <p>Total Expenses: <span id="totalExpenses">Rs.0.00</span></p>
                 <p>Net Amount: <span id="netAmount">Rs.0.00</span></p>
                 <canvas id="pieChart" width="300" height="150"></canvas>
-
             </div>
             <button type="button" class="btn btn-info" onclick="updateAnalytics()">Update Analytics</button>
         </div>
-
     </div>
 
-
-    <div>
-        <footer class="footer">
-            <p class="footer_copyright" style="text-align:center">
-                © Copyright 2024. Sudhar.
-            </p>
-        </footer>
-    </div>
+    <footer class="footer">
+        <p class="footer_copyright" style="text-align:center">© Copyright 2024. Sudhar.</p>
+    </footer>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
@@ -241,145 +237,95 @@
             $('#' + sectionId).addClass('active');
         }
 
-        function fetchExpenseItems() {
-            $.ajax({
-                type: "GET",
-                url: "/get_finance",  // Replace with your Laravel route to fetch farm items
-                dataType: "json",
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function (response) {
-                    var farmItemSelect = $('#expenseItem');
-                    farmItemSelect.empty();
-                    farmItemSelect.append('<option value="">Select farm item</option>'); // Default option
-                    if (response.farmItems) {
-                        response.farmItems.forEach(function (item) {
-                            farmItemSelect.append(`<option value="${item.id}">${item.name_of_product}</option>`);
-                        });
-                    }
-                },
-                error: function (xhr, status, error) {
-                    console.error("Ajax error:", xhr.responseText);
-                }
-            });
-        }
-
-        // Trigger fetchExpenseItems when the expense type is selected
-        $(document).ready(function () {
-            $('#expenseType').on('change', function () {
-                if ($(this).val()) {
-                    fetchExpenseItems();
-                } else {
-                    $('#expenseItem').empty();
-                    $('#expenseItem').append('<option value="">Select farm item</option>');
-                }
-            });
-        });
-
-        // Function to submit the expense form data via AJAX
-        function submitExpense() {
-            var formData = {
-                type_expenses: $('#expenseType').val(),
-                farm_expense_belongs: $('#expenseItem').val(),
-                expense_amount_spend: $('#expenseAmount').val(),
-                expense_date: $('#expenseDate').val(),
-                // Any additional fields, if necessary
-            };
-
-            $.ajax({
-                type: "POST",
-                url: "/add_expense",
-                data: formData,
-                dataType: "json",
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function (response) {
-                    alert("Expense added successfully!");
-                    location.reload();
-                    $('#expensesForm')[0].reset();
-                },
-                error: function (xhr, status, error) {
-                    console.error("Error adding expense:", xhr.responseText);
-                }
-            });
-        }
-
-
-        function fetchIncomeItems() {
-            $.ajax({
-                type: "GET",
-                url: "/get_income_items",  // Replace with your Laravel route to fetch farm items for income
-                dataType: "json",
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function (response) {
-                    var farmIncomeSelect = $('#incomeItem');
-                    farmIncomeSelect.empty();
-                    farmIncomeSelect.append('<option value="">Select farm item</option>'); // Default option
-                    if (response.farmItems) {
-                        response.farmItems.forEach(function (item) {
-                            farmIncomeSelect.append(`<option value="${item.id}">${item.name_of_product}</option>`);
-                        });
-                    }
-                },
-                error: function (xhr, status, error) {
-                    console.error("Ajax error:", xhr.responseText);
-                }
-            });
-        }
-
-        // Trigger fetchIncomeItems when the income source is selected
-        $(document).ready(function () {
-            $('#incomeSource').on('change', function () {
-                if ($(this).val() === 'sale') {
-                    fetchIncomeItems();
-                } else {
-                    $('#incomeItem').empty();
-                    $('#incomeItem').append('<option value="">Select farm item</option>');
-                }
-            });
-        });
-
-        // Function to submit the income form data via AJAX
         function submitIncome() {
-            var formData = $('#incomeForm').serialize();
+            const data = $('#incomeForm').serialize();
             $.ajax({
-                type: "POST",
-                url: "/add_income",  // Replace with your Laravel route to submit income
-                data: formData,
-                dataType: "json",
+                type: 'POST',
+                url: '/add_income',
+                data: data,
+                dataType: 'json',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function (response) {
                     alert('Income added successfully!');
-                    location.reload();
-                    updateAnalytics();
+                    $('#incomeForm')[0].reset();
                 },
                 error: function (error) {
-                    console.log('Error submitting income:', error);
+                    console.log('Error adding income:', error);
+                }
+            });
+        }
+
+        function submitExpense() {
+            const data = $('#expensesForm').serialize();
+            $.ajax({
+                type: 'POST',
+                url: '/add_expense',
+                data: data,
+                dataType: 'json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function (response) {
+                    alert('Expense added successfully!');
+                    $('#expensesForm')[0].reset();
+                },
+                error: function (error) {
+                    console.log('Error adding expense:', error);
                 }
             });
         }
 
         function submitSetup() {
-            var formData = $('#setupForm').serialize();
+            const data = $('#setupForm').serialize();
             $.ajax({
-                type: "POST",
-                url: "/add_setup",  // Replace with your Laravel route to submit setup data
-                data: formData,
-                dataType: "json",
+                type: 'POST',
+                url: '/add_product',
+                data: data,
+                dataType: 'json',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function (response) {
                     alert('Product added successfully!');
+                    $('#setupForm')[0].reset();
                 },
                 error: function (error) {
-                    console.log('Error submitting setup:', error);
+                    console.log('Error adding product:', error);
+                }
+            });
+        }
+
+        function updateAnalytics() {
+            const selectedDate = $('#analyticsDate').val();
+            const dateToFetch = selectedDate || new Date().toISOString().split('T')[0];
+            $.ajax({
+                type: 'GET',
+                url: '/get_analytics',
+                data: { date: dateToFetch },
+                dataType: 'json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function (response) {
+                    if (response.totalIncome === undefined || response.totalExpenses === undefined) {
+                        $('#totalIncome').text('Rs.0.00');
+                        $('#totalExpenses').text('Rs.0.00');
+                        $('#netAmount').text('Rs.0.00');
+                        createPieChart(['Income', 'Expenses'], [0, 0]);
+                    } else {
+                        $('#totalIncome').text('Rs.' + response.totalIncome.toFixed(2));
+                        $('#totalExpenses').text('Rs.' + response.totalExpenses.toFixed(2));
+                        $('#netAmount').text('Rs.' + response.netAmount.toFixed(2));
+                        createPieChart(
+                            ['Income', 'Expenses'],
+                            [response.totalIncome, response.totalExpenses]
+                        );
+                    }
+                },
+                error: function (error) {
+                    console.log('Error fetching analytics data:', error);
                 }
             });
         }
@@ -387,18 +333,15 @@
         function createPieChart(labels, data) {
             const ctx = document.getElementById('pieChart').getContext('2d');
             if (pieChart) {
-                pieChart.destroy(); // Destroy the previous chart instance if it exists
+                pieChart.destroy();
             }
             pieChart = new Chart(ctx, {
                 type: 'pie',
                 data: {
                     labels: labels,
                     datasets: [{
-                        label: 'Income vs Expenses',
                         data: data,
-                        backgroundColor: ['#4CAF50', '#F44336'],
-                        borderColor: ['#4CAF50', '#F44336'],
-                        borderWidth: 1
+                        backgroundColor: ['#36A2EB', '#FF6384'],
                     }]
                 },
                 options: {
@@ -419,34 +362,7 @@
             });
         }
 
-        function updateAnalytics() {
-            $.ajax({
-                type: "GET",
-                url: "/get_analytics",  // Replace with your Laravel route to get analytics data
-                dataType: "json",
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function (response) {
-                    $('#totalIncome').text('Rs.' + response.totalIncome.toFixed(2));
-                    $('#totalExpenses').text('Rs.' + response.totalExpenses.toFixed(2));
-                    $('#netAmount').text('Rs.' + response.netAmount.toFixed(2));
-
-                    // Update the pie chart
-                    createPieChart(
-                        ['Income', 'Expenses'],
-                        [response.totalIncome, response.totalExpenses]
-                    );
-                },
-                error: function (error) {
-                    console.log('Error fetching analytics data:', error);
-                }
-            });
-        }
-
-        // Initialize
-        // fetchFarmItems();
-        fetchExpenseItems();
+        // Initial call to populate analytics data for today
         updateAnalytics();
     </script>
 </body>
