@@ -58,11 +58,12 @@ Route::get('/show_weather_page',[WeatherController::class,'show_weather_page'])-
 //crop part
 Route::get('/showcrop',[CropdataController::class,'showcrop'])->name('showcrop');
 
-Route::get('/cropactivities',[CropactivitiesController::class,'getcropactivity'])->name('cropactivities');
+Route::get('/cropactivities',[CropdataController::class,'getcropactivity'])->name('cropactivities');
 // Route::get('/getcropactivities/{crop}', [CropactivitiesController::class, 'getCropActivities']);
-Route::get('/getcropactivities/{crop}', [CropactivitiesController::class, 'getCropActivities']);
+Route::get('/getcropactivities/{crop}', [CropdataController::class, 'getCropActivities']);
 
-
+Route::get('/plantingtypes/{crop}', [CropdataController::class, 'getPlantingTypes']);
+Route::get('/soiltypes/{crop}', [CropdataController::class, 'getSoilTypes']);
 
 // Route to fetch all crops
 Route::get('/getcropactivities', [CropdataController::class, 'getCrops']);

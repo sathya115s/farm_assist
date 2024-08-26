@@ -15,7 +15,9 @@
             align-items: center;
             height: 100vh;
             overflow: hidden;
-            background-color: #f8f9fa;
+            background-image: url('images/image.png');
+            background-repeat: no-repeat;
+            background-size: cover;
         }
 
         .video-bg {
@@ -39,6 +41,7 @@
             from {
                 opacity: 0;
             }
+
             to {
                 opacity: 1;
             }
@@ -78,20 +81,12 @@
 </head>
 
 <body>
-    <!-- Video Background -->
-    <video autoplay muted loop class="video-bg">
-        <source src="video/farm-background-video.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
+
 
     <div class="container">
         <div class="row justify-content-center py-5">
             <div class="col-sm-10 col-md-8 col-lg-5 col-xl-5 col-xxl-3 form-wrapper">
-                <div class="d-flex justify-content-center">
-                    <a class="d-flex flex-center text-decoration-none mb-4" href="/">
-                        <img src="images/farm-assist-logo.jpg" alt="Logo" class="logo">
-                    </a>
-                </div>
+                
                 <div class="text-center mb-4">
                     <h3 class="text-1000">Register</h3>
                     <p class="text-700">Create your farmer account</p>
@@ -105,11 +100,11 @@
                         <label class="form-label" for="name">Name</label>
                         <div class="form-icon-container">
                             <input class="form-control form-icon-input" id="name" type="text" name="name"
-                                value="{{ old('name') }}" required autofocus autocomplete="name" />
+                                value="{{ old('name') }}" required autofocus autocomplete="name" placeholder="enter your name" />
                             <span class="fas fa-user text-900 fs--1 form-icon"></span>
                         </div>
                         @if ($errors->has('name'))
-                        <div class="text-danger mt-1">{{ $errors->first('name') }}</div>
+                            <div class="text-danger mt-1">{{ $errors->first('name') }}</div>
                         @endif
                     </div>
 
@@ -118,11 +113,11 @@
                         <label class="form-label" for="email">Email address</label>
                         <div class="form-icon-container">
                             <input class="form-control form-icon-input" id="email" type="email" name="email"
-                                value="{{ old('email') }}" required autofocus autocomplete="email" />
+                                value="{{ old('email') }}" required autofocus autocomplete="email" placeholder="enter your email" />
                             <span class="fas fa-envelope text-900 fs--1 form-icon"></span>
                         </div>
                         @if ($errors->has('email'))
-                        <div class="text-danger mt-1">{{ $errors->first('email') }}</div>
+                            <div class="text-danger mt-1">{{ $errors->first('email') }}</div>
                         @endif
                     </div>
 
@@ -131,11 +126,11 @@
                         <label class="form-label" for="password">Password</label>
                         <div class="form-icon-container">
                             <input class="form-control form-icon-input" id="password" type="password" name="password"
-                                required autocomplete="new-password" />
+                                required autocomplete="new-password" placeholder="enter your password" />
                             <span class="fas fa-key text-900 fs--1 form-icon"></span>
                         </div>
                         @if ($errors->has('password'))
-                        <div class="text-danger mt-1">{{ $errors->first('password') }}</div>
+                            <div class="text-danger mt-1">{{ $errors->first('password') }}</div>
                         @endif
                     </div>
 
@@ -144,18 +139,19 @@
                         <label class="form-label" for="password_confirmation">Confirm Password</label>
                         <div class="form-icon-container">
                             <input class="form-control form-icon-input" id="password_confirmation" type="password"
-                                name="password_confirmation" required autocomplete="new-password" />
+                                name="password_confirmation" required autocomplete="new-password" placeholder="confirm-password"/>
                             <span class="fas fa-key text-900 fs--1 form-icon"></span>
                         </div>
                         @if ($errors->has('password_confirmation'))
-                        <div class="text-danger mt-1">{{ $errors->first('password_confirmation') }}</div>
+                            <div class="text-danger mt-1">{{ $errors->first('password_confirmation') }}</div>
                         @endif
                     </div>
 
                     <button class="btn btn-primary w-100 mb-3" type="submit">Register</button>
                 </form>
 
-                <div class="text-center mt-3"><a class="fs--1 fw-bold" href="{{ route('login') }}">Already registered?</a></div>
+                <div class="text-center mt-3"><a class="fs--1 fw-bold" href="{{ route('login') }}">Already
+                        registered?</a></div>
             </div>
         </div>
     </div>

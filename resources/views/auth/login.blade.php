@@ -15,6 +15,9 @@
             align-items: center;
             height: 100vh;
             overflow: hidden;
+            background-image: url(../images/image.png);
+            background-repeat: no-repeat;
+            background-size: cover;
         }
 
         .video-bg {
@@ -98,11 +101,7 @@
 </head>
 
 <body>
-    <!-- Video Background -->
-    <video autoplay muted loop class="video-bg">
-        <source src="video/farm-background-video.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
+
 
     <div class="container">
         <div class="row justify-content-center py-5">
@@ -124,7 +123,7 @@
                         <label class="form-label" for="email">Email address</label>
                         <div class="form-icon-container">
                             <input class="form-control form-icon-input" id="email" type="email" name="email"
-                                placeholder="name@example.com" required autofocus autocomplete="email" />
+                                placeholder="enter your email" required autofocus autocomplete="email" />
                             <span class="fas fa-user text-900 fs--1 form-icon"></span>
                         </div>
                     </div>

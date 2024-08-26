@@ -39,4 +39,35 @@ class CropdataController extends Controller
         // Return a JSON response indicating success
         return response()->json(['message' => 'Soybean activity added successfully']);
     }
+
+    public function getcropactivity()
+    {
+        $getcropactivity = Cropdata::all();
+        return response()->json($getcropactivity);
+    }
+
+    public function getCropActivities($crop)
+    {
+        // Fetch crop activities based on the crop name
+        $activities = Cropdata::where('crop', $crop)->get();
+
+        if ($activities->isEmpty()) {
+            return response()->json(['message' => 'No activities found for this crop'], 404);
+        }
+
+        return response()->json($activities, 200);
+    }
+
+    public function getPlantingTypes()
+    {
+        $plantingTypes = Cropdata::distinct('type_of_planting')->pluck('type_of_planting');
+        return response()->json($plantingTypes);
+    }
+
+    public function getSoilTypes()
+    {
+        $soilTypes = Cropdata::distinct('soil_type')->pluck('soil_type');
+        return response()->json($soilTypes);
+    }
+    
 }
