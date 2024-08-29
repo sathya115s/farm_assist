@@ -13,13 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('livetocks', function (Blueprint $table) {
+        Schema::create('livestocks', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('birthdate');
             $table->string('color');
+            $table->string('vaccinated_date')->nullable(); // Allows NULL values
+            $table->string('image')->nullable();
             $table->string('feeding_time');
             $table->string('gender');
+            $table->string('vaccinated')->nullable()->default('no'); // Allows NULL values and sets default to 'no'
+            $table->string('doctor_name');
             $table->timestamps();
         });
     }
@@ -31,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('livetocks');
+        Schema::dropIfExists('livestocks');
     }
 };

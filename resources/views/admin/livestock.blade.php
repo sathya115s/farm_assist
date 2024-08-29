@@ -176,6 +176,10 @@
         textarea {
             width: 100%;
         }
+
+        .prescription {
+            line-break: anywhere;
+        }
     </style>
 </head>
 
@@ -350,7 +354,7 @@
                 </div>
                 <div class="modal-body">
                     <form id="doctor-info-form">
-                                            <input type="hidden" id="livestock_id" value="2"> <!-- Hidden field for livestock ID -->
+                        <input type="hidden" id="livestock_id" value="2"> <!-- Hidden field for livestock ID -->
 
                         <div class="form-group">
                             <label for="doctor-name">Doctor Name:</label>
@@ -369,12 +373,36 @@
         </div>
     </div>
 
+    <!-- Report Modal -->
+    <!-- Modal Structure -->
+    <div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="reportModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reportModalLabel">Report</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Dynamic content will be injected here -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
     <footer>
         <p>© 2024 Farm Management App. All rights reserved.</p>
     </footer>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
         $(document).ready(function () {
             // Set up CSRF token for AJAX requests
@@ -403,9 +431,10 @@
                                     '<td>' + animal.feeding_time + '</td>' +
                                     '<td>' + animal.gender + '</td>' +
                                     '<td><img src="' + animal.image + '" width="100" height="100"></td>' +
-                                    '<td>' + (animal.prescription || 'No prescription details available') + '</td>' +
+                                    '<td class="prescription">' + (animal.prescription || 'No prescription details available') + '</td>' +
                                     '<td><button class="btn btn-primary btn-sm doctor-number-btn" data-id="' + animal.id + '">Doctor Report</button></td>' +
-                                    '<td><button class="btn btn-primary btn-sm edit-btn" data-id="' + animal.id + '">Edit</button></td>' +
+                                    '<td><button class="btn btn-primary btn-sm viewreport-btn" data-id="' + animal.id + '">View Report</button></td>' +
+
                                     '</tr>'
                                 );
                             });
@@ -490,6 +519,24 @@
                     }
                 });
             });
+            $(document).ready(function () {
+                $(document).on('click', '.viewreport-btn', function () {
+                    var reportId = $(this).data('id');
+
+                    $.ajax({
+                        url: '/report/' + reportId,
+                        method: 'GET',
+                        success: function (response) {
+                            $('#reportModal .modal-body').html(response);
+                            $('#reportModal').modal('show');
+                        },
+                        error: function () {
+                            $('#reportModal .modal-body').html('An error occurred while fetching the report.');
+                            $('#reportModal').modal('show');
+                        }
+                    });
+                });
+            });
 
             // Handle livestock form submission
             $('#livestock-form').submit(function (event) {
@@ -521,28 +568,33 @@
 
             // Handle edit livestock form submission
             $('#edit-livestock-form').submit(function (event) {
-                event.preventDefault();
+                event.preventDefault(); // Prevent the default form submission
+
+                // Retrieve the ID from the form's data attribute or a hidden input field
+                var livestockId = $(this).data('id'); // Adjust this if the ID is elsewhere
+
+                // Create FormData object from the form
                 var formData = new FormData(this);
 
                 $.ajax({
-                    url: '{{ url('/update_livestock') }}',
-                    type: 'POST',
-                    data: formData,
-                    contentType: false,
-                    processData: false,
+                    url: '{{ url('/update_livestock') }}/' + livestockId, // Include the ID in the URL
+                    type: 'POST', // Use POST method
+                    data: formData, // Send the form data
+                    contentType: false, // Prevent jQuery from setting Content-Type header
+                    processData: false, // Prevent jQuery from processing the data
                     success: function (response) {
                         if (response.success) {
-                            $('.success-message').show();
-                            loadAnimals(); // Refresh the list
-                            $('#edit-livestock-form')[0].reset(); // Reset form
-                            $('#editAnimalModal').modal('hide');
+                            $('.success-message').show(); // Show success message
+                            loadAnimals(); // Refresh the list of animals
+                            $('#edit-livestock-form')[0].reset(); // Reset the form fields
+                            $('#editAnimalModal').modal('hide'); // Hide the modal
                         } else {
-                            alert('Failed to update livestock. Please try again.');
+                            alert('Failed to update livestock. Please try again.'); // User-friendly alert
                         }
                     },
                     error: function (response) {
-                        console.error('Error:', response);
-                        alert('An error occurred. Please try again.');
+                        console.error('Error:', response); // Log the error for debugging
+                        alert('An error occurred. Please try again.'); // User-friendly error alert
                     }
                 });
             });
@@ -564,7 +616,7 @@
                             location.reload(); // Refresh the page
                             $('#doctorNumberModal').modal('hide'); // Hide the modal
                         } else {
-                            alert('Doctor information saved successfully.'); 
+                            alert('Doctor information saved successfully.');
                             location.reload();// Alert if success is not true
                         }
                     },

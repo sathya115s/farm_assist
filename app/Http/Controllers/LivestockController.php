@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Livetock;
 use Illuminate\Http\Request;
+use App\Models\Livestock;
 
 class LivestockController extends Controller
 {
+    
     public function show_livestock()
     {
         return view('admin.livestock');
@@ -33,7 +34,7 @@ class LivestockController extends Controller
         $validatedData = $request->validate($rules);
 
         // Store livestock data in the database
-        $livestock = new Livetock(); // Ensure the class name is correct
+        $livestock = new Livestock(); // Ensure the class name is correct
         $livestock->name = $validatedData['name'];
         $livestock->birthdate = $validatedData['birthdate'];
         $livestock->color = $validatedData['color'];
@@ -65,20 +66,15 @@ class LivestockController extends Controller
 
     public function show()
     {
-        $animals = Livetock::all();
+        $animals = Livestock::all();
         return response()->json(['animals' => $animals]);
     }
 
-    //     public function show($id)
-// {
-//     $livestock = Livetock::findOrFail($id);
-//     return response()->json($livestock);
-// }
 
 
     public function edit($id)
     {
-        $livestock = Livetock::findOrFail($id);
+        $livestock = Livestock::findOrFail($id);
         return response()->json($livestock);
     }
 
@@ -96,7 +92,7 @@ class LivestockController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $livestock = Livetock::findOrFail($id);
+        $livestock = Livestock::findOrFail($id);
         $livestock->name = $request->name;
         $livestock->birthdate = $request->birthdate;
         $livestock->color = $request->color;
@@ -116,47 +112,73 @@ class LivestockController extends Controller
     }
 
 
-public function getDoctorInfo($id){
-    $animal=Livetock::find($id);
-    return response()->json(['message'=>'fetched ',compact('animal')]);
-}
+    public function getDoctorInfo($id)
+    {
+        $animal = Livestock::find($id);
+        return response()->json(['message' => 'fetched ', compact('animal')]);
+    }
     public function save_doctor_info(Request $request, $id)
-{
-    // Debugging: Log the ID being used
-    \Log::info('Looking for livestock with ID: ' . $id);
+    {
+        // Debugging: Log the ID being used
+        \Log::info('Looking for livestock with ID: ' . $id);
 
-    // Fetch the livestock record based on the ID
-    $livestock = Livetock::find($id);
+        // Fetch the livestock record based on the ID
+        $livestock = Livestock::find($id);
 
-    // Check if the record exists
-    if (!$livestock) {
-        return response()->json(['error' => 'Livestock record not found'], 404);
+        // Check if the record exists
+        if (!$livestock) {
+            return response()->json(['error' => 'Livestock record not found'], 404);
+        }
+
+        // Validate the incoming request data
+        $validatedData = $request->validate([
+            'doctor_name' => 'nullable|string|max:255',
+            'prescription' => 'nullable|string',
+        ]);
+
+        // Update the livestock record with new data if provided
+        if ($request->has('doctor_name')) {
+            $livestock->doctor_name = $request->input('doctor_name');
+        }
+
+        if ($request->has('prescription')) {
+            $livestock->prescription = $request->input('prescription');
+        }
+
+        // Save changes to the database
+        $livestock->save();
+
+        // Return the updated data as JSON
+        return response()->json([
+            'doctor_name' => $livestock->doctor_name,
+            'prescription' => $livestock->prescription
+        ]);
     }
 
-    // Validate the incoming request data
-    $validatedData = $request->validate([
-        'doctor_name' => 'nullable|string|max:255',
-        'prescription' => 'nullable|string',
-    ]);
+    public function showReport($id)
+    {
+        // Find the report by ID
+        $report = Livestock::find($id);
 
-    // Update the livestock record with new data if provided
-    if ($request->has('doctor_name')) {
-        $livestock->doctor_name = $request->input('doctor_name');
+        if ($report) {
+            // Check if the prescription is available
+            if ($report->prescription) {
+                // Return the prescription content if available
+                return response()->json([
+                    'content' => $report->prescription,
+                    'data' => 'Doctor report fetched successfully'
+                ]);
+            } else {
+                // Return a message indicating no prescription is available
+                return response()->json([
+                    'message' => 'Prescription is not available for this report.',
+                ]);
+            }
+        } else {
+            // Return an error if the report is not found
+            return response()->json(['error' => 'Report not found'], 404);
+        }
     }
-
-    if ($request->has('prescription')) {
-        $livestock->prescription = $request->input('prescription');
-    }
-
-    // Save changes to the database
-    $livestock->save();
-
-    // Return the updated data as JSON
-    return response()->json([
-        'doctor_name' => $livestock->doctor_name,
-        'prescription' => $livestock->prescription
-    ]);
-}
 
 
 }

@@ -185,13 +185,13 @@
                 </div>
                 <div class="form-group">
                     <label for="expenseItem">Select the farm item to which this expense belongs</label>
-                    <select class="form-control" id="expenseItem" name="expense_item">
+                    <select class="form-control" id="expenseItem" name="farm_expense_belongs">
                         <option value="">Select farm item</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="expenseAmount">How much did you spend</label>
-                    <input type="number" class="form-control" id="expenseAmount" name="expense_amount"
+                    <input type="number" class="form-control" id="expenseAmount" name="expense_amount_spend"
                         placeholder="Enter amount">
                 </div>
                 <div class="form-group">

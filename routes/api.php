@@ -79,3 +79,8 @@ Route::get('/getcrop/{cropName}', [CropController::class, 'getActivitiesForCrop'
 
 // Route to fetch activity schedule based on selections
 Route::get('/getactivityschedule/{cropName}/{soilType}/{plantingType}', [CropController::class, 'getActivitySchedule']);
+
+Route::get('/report/{id}', [LivestockController::class, 'showReport']);
+
+
+Route::get('/login/{id}',[LoginController::class,'userbyid']);

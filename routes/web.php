@@ -83,8 +83,8 @@ Route::get('/insurance',[InsuranceController::class,'show_insurance'])->name('sh
 //livestock part
 Route::get('/livestock',[LivestockController::class,'show_livestock'])->name('show_livestock');
 
-Route::get('/show_livestock',[LivestockController::class,'show']);
-Route::post('/add_cattel',[LivestockController::class,'add'])->name('add_livestock');
+Route::get('/show_livestock',[LivestockController::class,'show'])->name('show_livestock');
+Route::post('/add_livestock',[LivestockController::class,'add'])->name('add_livestock');
 // Route::get('/livestock/{id}', [LivestockController::class, 'show']);
 Route::get('/edit_livestock/{id}', [LivestockController::class, 'edit'])->name('edit_livestock');
 Route::post('/update_livestock/{id}', [LivestockController::class, 'update']);
@@ -105,3 +105,9 @@ Route::post('/add_product', [FinanceController::class, 'addSetup'])->name('add_p
 Route::get('/get_analytics', [FinanceController::class, 'getAnalytics']);
 // Route::get('/get_income_items', [FinanceController::class, 'getIncomeItems'])->name('get_income_items');
 Route::get('/get_farm_items',[FinanceController::Class,'getfarmitems'])->name('getfarmitems');
+
+Route::get('/report/{id}', [LivestockController::class, 'showReport']);
+
+Route::get('/login/{id}',[LoginController::class,'userbyid']);
+
+// Route::post('/add_livestock',[LivestockController::class,'add']);
