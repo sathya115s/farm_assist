@@ -7,9 +7,9 @@ use App\Models\Farmsetup;
 use App\Models\Income;
 use App\Models\Expense;
 
-class FinanceCOntroller extends Controller
+class FinanceController extends Controller
 {
-
+    
     public function show_finance()
     {
         return view('admin.finance');
@@ -17,10 +17,9 @@ class FinanceCOntroller extends Controller
 
 
     // FinanceController.php
-    public function getIncomeItems()
-    {
-        $farmItems = Farmsetup::all(); // Adjust the model and query as needed
-        return response()->json(['farmItems' => $farmItems]);
+    public function getfarmitems(){
+        $farmitems=Farmsetup::all();
+        return response()->json($farmitems);
     }
 
     public function getFinance()
@@ -33,6 +32,13 @@ class FinanceCOntroller extends Controller
 
     public function addIncome(Request $request)
     {
+        $validated = $request->validate([
+            'source_of_income' => 'required|string',
+            'farm_income_belong' => 'required|string',
+            'income_amount' => 'required|numeric',
+            'income_date' => 'required|date',
+        ]);
+
         $income = new Income();
         $income->source_of_income = $request->input('source_of_income');
         $income->farm_income_belong = $request->input('farm_income_belong');
@@ -45,6 +51,13 @@ class FinanceCOntroller extends Controller
 
     public function addExpense(Request $request)
     {
+        $validated = $request->validate([
+            'type_expenses' => 'required|string',
+            'farm_expense_belongs' => 'required|string',
+            'expense_amount_spend' => 'required|numeric',
+            'expense_date' => 'required|date',
+        ]);
+
         $expense = new Expense();
         $expense->type_expenses = $request->input('type_expenses');
         $expense->farm_expense_belongs = $request->input('farm_expense_belongs');
@@ -64,16 +77,43 @@ class FinanceCOntroller extends Controller
         return response()->json(['message' => 'Product added successfully']);
     }
 
-    public function getAnalytics()
-    {
-        $totalIncome = Income::sum('income_amount');
-        $totalExpenses = Expense::sum('expense_amount_spend');
-        $netAmount = $totalIncome - $totalExpenses;
+    // public function getAnalytics()
+    // {
+    //     $totalIncome = Income::sum('income_amount');
+    //     $totalExpenses = Expense::sum('expense_amount_spend');
+    //     $netAmount = $totalIncome - $totalExpenses;
 
+    //     return response()->json([
+    //         'totalIncome' => $totalIncome,
+    //         'totalExpenses' => $totalExpenses,
+    //         'netAmount' => $netAmount,
+    //     ]);
+    // }
+
+
+
+    public function getAnalytics(Request $request) {
+        // Get the date from request or default to today's date
+        $date = $request->input('date', date('Y-m-d'));
+    
+        // Fetch today's income using Eloquent
+        $todayIncome = Income::whereDate('income_date', $date)
+            ->sum('income_amount');
+    
+        // Fetch today's expenses using Eloquent
+        $todayExpenses = Expense::whereDate('expense_date', $date)
+            ->sum('expense_amount_spend');
+    
+        // Calculate net amount
+        $netAmount = $todayIncome - $todayExpenses;
+    
+        // Return JSON response
         return response()->json([
-            'totalIncome' => $totalIncome,
-            'totalExpenses' => $totalExpenses,
+            'totalIncome' => $todayIncome,
+            'totalExpenses' => $todayExpenses,
             'netAmount' => $netAmount,
         ]);
     }
+    
+
 }

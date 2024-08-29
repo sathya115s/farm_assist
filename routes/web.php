@@ -4,7 +4,7 @@ use App\Http\Controllers\AgricultureController;
 use App\Http\Controllers\CropactivitiesController;
 use App\Http\Controllers\CropdataController;
 use App\Http\Controllers\ExpenseController;
-use App\Http\Controllers\FinanceCOntroller;
+use App\Http\Controllers\FinanceController;
 use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\LivestockController;
 use App\Http\Controllers\ProfileController;
@@ -97,10 +97,11 @@ Route::post('save_doctor_info/{id}',[LivestockController::class,'save_doctor_inf
 //marketprice
 Route::get('/market_price',[MarketpriceController::class,'market_price'])->name('market_price');
 
-Route::get('/show_finance', [FinanceCOntroller::class, 'show_finance'])->name('show_finance_page');
-Route::get('/get_finance', [FinanceCOntroller::class, 'getFinance']);
-Route::post('/add_income', [FinanceCOntroller::class, 'addIncome']);
-Route::post('/add_expense', [FinanceCOntroller::class, 'addExpense']);
-Route::post('/add_setup', [FinanceCOntroller::class, 'addSetup']);
-Route::get('/get_analytics', [FinanceCOntroller::class, 'getAnalytics']);
-Route::get('/get_income_items', [FinanceCOntroller::class, 'getIncomeItems']);
+Route::get('/show_finance', [FinanceController::class, 'show_finance'])->name('show_finance_page');
+Route::get('/get_finance', [FinanceController::class, 'getFinance']);
+Route::post('/add_income', [FinanceController::class, 'addIncome']);
+Route::post('/add_expense', [FinanceController::class, 'addExpense']);
+Route::post('/add_product', [FinanceController::class, 'addSetup'])->name('add_product');
+Route::get('/get_analytics', [FinanceController::class, 'getAnalytics']);
+// Route::get('/get_income_items', [FinanceController::class, 'getIncomeItems'])->name('get_income_items');
+Route::get('/get_farm_items',[FinanceController::Class,'getfarmitems'])->name('getfarmitems');

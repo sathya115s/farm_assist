@@ -65,7 +65,7 @@ Route::get('/show_finance', [FinanceController::class, 'show_finance'])->name('s
 Route::get('/get_finance', [FinanceController::class, 'getFinance']);
 Route::post('/add_income', [FinanceController::class, 'addIncome']);
 Route::post('/add_expense', [FinanceController::class, 'addExpense']);
-Route::post('/add_setup', [FinanceController::class, 'addSetup']);
+Route::post('/add_product', [FinanceController::class, 'addSetup'])->name('add_product');
 Route::get('/get_analytics', [FinanceController::class, 'getAnalytics']);
 Route::get('/get_income_items', [FinanceController::class, 'getIncomeItems']);
 
