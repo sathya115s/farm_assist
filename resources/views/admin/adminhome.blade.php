@@ -162,7 +162,7 @@
             <!-- Livestock Information Card -->
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card">
-                    <a href="{{route('show_livestock')}}">
+                    <a href="{{route('livestock')}}">
                         <img src="images/livestock.avif" class="card-img-top" alt="Livestock Image">
                     </a>
                     <div class="card-header">

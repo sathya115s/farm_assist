@@ -81,7 +81,7 @@ Route::get('/getactivityschedule/{cropName}/{soilType}/{plantingType}', [Cropdat
 Route::get('/insurance',[InsuranceController::class,'show_insurance'])->name('show_insurance');
 
 //livestock part
-Route::get('/livestock',[LivestockController::class,'show_livestock'])->name('show_livestock');
+Route::get('/livestock',[LivestockController::class,'show_livestock'])->name('livestock');
 
 Route::get('/show_livestock',[LivestockController::class,'show'])->name('show_livestock');
 Route::post('/add_livestock',[LivestockController::class,'add'])->name('add_livestock');
