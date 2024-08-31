@@ -37,6 +37,8 @@
             gap: 1.5em;
             justify-content: center;
             align-items: center;
+            position: relative;
+            top: 145px;
         }
 
         .insurance-link {
@@ -93,6 +95,9 @@
             padding: 0.5em;
             box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
             margin-top: 2em;
+            position: fixed;
+    width: 1561px;
+    bottom: 0;
         }
 
         h2 {

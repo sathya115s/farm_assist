@@ -35,6 +35,9 @@
             padding: 0.5em;
             box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
             margin-top: 2em;
+            position: fixed;
+            bottom: 0;
+            width: 1541px;
         }
 
         .container {

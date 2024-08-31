@@ -74,7 +74,7 @@
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-light">
+    <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">FARMING MANAGEMENT APP</a>
             @if (Auth::check())
@@ -100,58 +100,56 @@
             </div>
         </div>
 
-        <div class="row mt-4">
-            <div class="col-12">
-                <h2>Fruit Prices</h2>
-                <div class="table-responsive">
-                    <table id="fruit-prices-table" class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Fruit</th>
-                                <th>kg</th>
-                                <th>Retail Price (INR)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Fruit data will be inserted here by JavaScript -->
-                        </tbody>
-                    </table>
+        <!-- Hide tables initially -->
+        <div id="tables-container" class="d-none">
+            <div class="row mt-4">
+                <div class="col-12">
+                    <h2>Fruit Prices</h2>
+                    <div class="table-responsive">
+                        <table id="fruit-prices-table" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Fruit</th>
+                                    <th>kg</th>
+                                    <th>Retail Price (INR)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Fruit data will be inserted here by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="row mt-4">
-            <div class="col-12">
-                <h2>Vegetable Prices</h2>
-                <div class="table-responsive">
-                    <table id="vegetable-prices-table" class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Vegetable</th>
-                                <th>kg</th>
-                                <th>Retail Price (INR)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Vegetable data will be inserted here by JavaScript -->
-                        </tbody>
-                    </table>
+            <div class="row mt-4">
+                <div class="col-12">
+                    <h2>Vegetable Prices</h2>
+                    <div class="table-responsive">
+                        <table id="vegetable-prices-table" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Vegetable</th>
+                                    <th>kg</th>
+                                    <th>Retail Price (INR)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Vegetable data will be inserted here by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </main>
-    <div>
-        <footer class="footer">
-            <p class="footer_copyright" style="text-align:center">
-                © Copyright 2024. Sudhar.
-            </p>
-        </footer>
-    </div>
-    <!-- <footer>
-        <p>&copy; 2024 Market Prices App</p>
-    </footer> -->
 
-    <!-- <script src="script.js"></script> -->
+    <footer class="footer">
+        <p class="footer_copyright" style="text-align:center">
+            © Copyright 2024. Sudhar.
+        </p>
+    </footer>
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const fruitPrices = {
@@ -213,18 +211,17 @@
                 });
             };
 
-            // Load initial fruit and vegetable prices based on a default city
-            const defaultCity = 'chennai';
-            populateTable(fruitPrices[defaultCity], 'fruit-prices-table');
-            populateTable(vegetablePrices[defaultCity], 'vegetable-prices-table');
-
-            // Load fruit and vegetable prices based on selected city
+            // Event listener for city selection
             document.getElementById('city-select').addEventListener('change', function () {
                 const selectedCity = this.value;
+                const tablesContainer = document.getElementById('tables-container');
+                
                 if (selectedCity && fruitPrices[selectedCity] && vegetablePrices[selectedCity]) {
+                    tablesContainer.classList.remove('d-none'); // Show tables
                     populateTable(fruitPrices[selectedCity], 'fruit-prices-table');
                     populateTable(vegetablePrices[selectedCity], 'vegetable-prices-table');
                 } else {
+                    tablesContainer.classList.add('d-none'); // Hide tables if no valid city selected
                     document.querySelector('#fruit-prices-table tbody').innerHTML = '';
                     document.querySelector('#vegetable-prices-table tbody').innerHTML = '';
                 }

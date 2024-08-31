@@ -102,6 +102,9 @@
             padding: 0.5em;
             box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
             margin-top: 2em;
+            position: fixed;
+            width: 1561px;
+            bottom: 0;
         }
 
         .form-section {
