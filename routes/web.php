@@ -113,3 +113,5 @@ Route::get('/login/{id}',[LoginController::class,'userbyid']);
 // Route::post('/add_livestock',[LivestockController::class,'add']);
 
 Route::get('/getplanting/{crop}',[CropdataController::class,'getplanting']);
+
+Route::get('/agricultural_practice',[AgricultureController::class,'agriculture']);

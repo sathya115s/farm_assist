@@ -7,7 +7,7 @@ use App\Models\Livestock;
 
 class LivestockController extends Controller
 {
-    
+
     public function show_livestock()
     {
         return view('admin.livestock');
@@ -102,9 +102,16 @@ class LivestockController extends Controller
         $livestock->gender = $request->gender;
 
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('public/images');
-            $livestock->image = basename($imagePath);
+            // Get the original filename with extension
+            $originalFileName = $request->file('image')->getClientOriginalName();
+
+            // Store the image in 'public/images/' folder with the original filename
+            $imagePath = $request->file('image')->storeAs('images', $originalFileName, 'public');
+
+            // Save the filename to the database
+            $livestock->image = 'images/' . $originalFileName;
         }
+
 
         $livestock->save();
 

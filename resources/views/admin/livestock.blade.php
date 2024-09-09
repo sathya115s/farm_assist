@@ -287,8 +287,9 @@
                     <h5 class="modal-title" id="editAnimalModalLabel">Edit Animal</h5>
                 </div>
                 <div class="modal-body">
-                    <form id="edit-livestock-form">
-                        <input type="hidden" id="edit-animal-id">
+                    <form id="edit-livestock-form" method="POST" enctype="multipart/form-data">
+                        @csrf <!-- Add this line to include the CSRF token -->
+                        <input type="hidden" id="edit-animal-id" name="id">
                         <div class="form-group">
                             <label for="edit-animal-name">Animal Name:</label>
                             <input type="text" id="edit-animal-name" name="name" required>
@@ -332,7 +333,6 @@
                             <label for="edit-image">Upload New Image:</label>
                             <input type="file" id="edit-image" name="image" accept="image/*">
                         </div>
-
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">Update</button>
                         </div>
@@ -341,6 +341,7 @@
             </div>
         </div>
     </div>
+
 
     <!-- Doctor Number Modal -->
     <div class="modal fade" id="doctorNumberModal" tabindex="-1" role="dialog" aria-labelledby="doctorNumberModalLabel"
@@ -374,7 +375,6 @@
         </div>
     </div>
 
-    <!-- Report Modal -->
     <!-- Modal Structure -->
     <div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="reportModalLabel"
         aria-hidden="true">
@@ -406,13 +406,11 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
         $(document).ready(function () {
-            // Set up CSRF token for AJAX requests
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-
             // Function to load animals into the table
             function loadAnimals() {
                 $.ajax({
@@ -568,6 +566,9 @@
                 });
             });
 
+            // Get the CSRF token from the meta tag
+            const csrfToken = $('meta[name="csrf-token"]').attr('content');
+
             $(document).on('click', '.edit-btn', function () {
                 const animalId = $(this).data('id');
                 $.ajax({
@@ -606,18 +607,19 @@
                     processData: false,
                     contentType: false,
                     headers: {
-                        'X-CSRF-TOKEN': csrfToken,
-                        'X-HTTP-Method-Override': 'PUT'
+                        'X-CSRF-TOKEN': csrfToken, // Use the CSRF token from the meta tag
+                        'X-HTTP-Method-Override': 'POST' // For PUT request override
                     },
                     success: function () {
                         $('#editAnimalModal').modal('hide');
-                        loadAnimalList();
+                        loadAnimalList(); // Ensure this function reloads the list of animals
                     },
                     error: function () {
                         $('.error-message').show().fadeOut(5000);
                     }
                 });
             });
+
 
             // Handle doctor info form submission
             $('#doctor-info-form').submit(function (event) {
@@ -646,7 +648,7 @@
                     }
                 });
             });
-
+loadAnimals();
         });
     </script>
 
