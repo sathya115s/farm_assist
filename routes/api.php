@@ -89,6 +89,26 @@ Route::get('/login/{id}',[LoginController::class,'userbyid']);
 
 
 Route::get('/getbycrop/{crop}',[CropdataController::class,'getsoiltype']);
-
-
 Route::get('/getplanting/{crop}',[CropdataController::class,'getplanting']);
+
+
+
+
+
+// api fro android
+Route::post('/login',[LoginController::class,'login']);
+Route::post('/register',[LoginController::class,'register']);
+Route::post('/add_income', [FinanceController::class, 'addIncome']);
+Route::post('/add_expense', [FinanceController::class, 'addExpense']);
+Route::post('/add_product', [FinanceController::class, 'addSetup'])->name('add_product');
+Route::get('/get_analytics', [FinanceController::class, 'getAnalytics']);
+Route::get('/get_income_items', [FinanceController::class, 'getIncomeItems']);
+Route::get('/getcrop/{cropName}', [CropController::class, 'getActivitiesForCrop']);
+Route::get('/getcrop/{cropName}', [CropController::class, 'getActivitiesForCrop']);
+Route::get('/getactivityschedule/{cropName}/{soilType}/{plantingType}', [CropController::class, 'getActivitySchedule']);
+Route::get('/getbycrop/{crop}',[CropdataController::class,'getsoiltype']);
+Route::get('/getplanting/{crop}',[CropdataController::class,'getplanting']);
+
+
+
+
