@@ -37,7 +37,7 @@
             margin-top: 2em;
             position: fixed;
             bottom: 0;
-            width: 1541px;
+            width: 100%;
         }
 
         .container {
@@ -45,6 +45,10 @@
             background: rgba(255, 255, 255, 0.8);
             box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
             padding: 20px;
+        }
+
+        .hidden {
+            display: none;
         }
     </style>
 </head>
@@ -55,12 +59,12 @@
             <a class="navbar-brand" href="#">FARMING MANAGEMENT APP</a>
             <!-- Authentication and Logout Button -->
             @if (Auth::check())
-            <li>
-                <form method="post" action="{{ route('logout') }}">
-                    @csrf
-                    <button class="btn">LOGOUT ({{ Auth::user()->name }})</button>
-                </form>
-            </li>
+                <li>
+                    <form method="post" action="{{ route('logout') }}">
+                        @csrf
+                        <button class="btn">LOGOUT ({{ Auth::user()->name }})</button>
+                    </form>
+                </li>
             @endif
         </div>
     </nav>
@@ -75,14 +79,14 @@
                     <!-- Options will be dynamically populated -->
                 </select>
             </div>
-            <div class="form-group">
+            <div class="form-group hidden" id="soilTypeContainer">
                 <label for="soilType">Select Soil Type:</label>
                 <select class="form-control" id="soilType">
                     <option value="">Select an option</option>
                     <!-- Options will be dynamically populated -->
                 </select>
             </div>
-            <div class="form-group">
+            <div class="form-group hidden" id="plantingTypeContainer">
                 <label for="plantingType">Select Planting Type:</label>
                 <select class="form-control" id="plantingType">
                     <option value="">Select an option</option>
@@ -100,9 +104,7 @@
         <div id="activitySchedule" class="animate__animated"></div>
     </div>
 
-    <footer class="footer">
-        <p class="footer_copyright">© Copyright 2024. Sudhar.</p>
-    </footer>
+    
 
     <script>
         $(document).ready(function () {
@@ -132,40 +134,53 @@
                 });
             }
 
-            // Fetch planting types and soil types based on selected crop
+            // Fetch soil types and planting types based on selected crop
             $('#cropSelect').change(function () {
                 const selectedCrop = $(this).val();
 
                 if (selectedCrop) {
-                    // Fetch and populate planting types
-                    $.ajax({
-                        url: `/plantingtypes/${selectedCrop}`, // Adjust URL based on selected crop
-                        type: 'GET',
-                        success: function (data) {
-                            populateSelectOptions('#plantingType', data); // Populate planting type dropdown
-                        },
-                        error: function (xhr, status, error) {
-                            console.error('Error fetching planting types:', error);
-                            alert('Failed to fetch planting types.');
-                        }
-                    });
+                    // Show soil type and planting type containers
+                    $('#soilTypeContainer').removeClass('hidden');
+                    $('#plantingTypeContainer').removeClass('hidden');
 
                     // Fetch and populate soil types
                     $.ajax({
-                        url: `/soiltypes/${selectedCrop}`, // Adjust URL based on selected crop
+                        url: `/getbycrop/${selectedCrop}`, // Adjust URL based on selected crop
                         type: 'GET',
-                        success: function (data) {
-                            populateSelectOptions('#soilType', data); // Populate soil type dropdown
+                        success: function (response) {
+                            console.log('Server Response:', response); // Debugging line
+                            updateSoilTypeDropdown(response.soilTypes); // Update soil type dropdown
                         },
                         error: function (xhr, status, error) {
                             console.error('Error fetching soil types:', error);
                             alert('Failed to fetch soil types.');
                         }
                     });
+
+                    // Fetch and populate planting types
+                    $.ajax({
+                        url: `/getplanting/${selectedCrop}`, // Adjust URL based on selected crop
+                        type: 'GET',
+                        success: function (response) {
+                            console.log('Planting Types Response:', response); // Debugging line
+                            if (response && response.plantingTypes) {
+                                updatePlantingTypeDropdown(response.plantingTypes); // Update planting type dropdown
+                            } else {
+                                console.error('Response format is incorrect:', response);
+                                alert('Failed to fetch planting types.');
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.error('Error fetching planting types:', error);
+                            alert('Failed to fetch planting types.');
+                        }
+                    });
                 } else {
-                    // Clear the dropdowns if no crop is selected
-                    $('#plantingType').empty().append('<option value="">Select an option</option>');
+                    // Hide soil type and planting type containers and clear their contents
+                    $('#soilTypeContainer').addClass('hidden');
+                    $('#plantingTypeContainer').addClass('hidden');
                     $('#soilType').empty().append('<option value="">Select an option</option>');
+                    $('#plantingType').empty().append('<option value="">Select an option</option>');
                 }
             });
 
@@ -176,6 +191,35 @@
                     const optionElement = $('<option></option>').val(option).text(option);
                     selectElement.append(optionElement);
                 });
+            }
+
+            function updateSoilTypeDropdown(soilTypes) {
+                const soilSelect = $('#soilType');
+                soilSelect.empty().append('<option value="">Select an option</option>'); // Reset options
+                if (Array.isArray(soilTypes)) { // Ensure soilTypes is an array
+                    soilTypes.forEach(soilType => {
+                        const optionElement = $('<option></option>').val(soilType).text(soilType);
+                        soilSelect.append(optionElement);
+                    });
+                } else {
+                    console.error('Expected soilTypes to be an array, but got:', soilTypes);
+                    alert('Failed to fetch soil types.');
+                }
+            }
+
+            function updatePlantingTypeDropdown(plantingtypes) {
+                const plantingSelect = $('#plantingType');
+                plantingSelect.empty().append('<option value="">Select an option</option>'); // Reset options
+
+                if (Array.isArray(plantingtypes)) { // Ensure plantingtypes is an array
+                    plantingtypes.forEach(plantingType => {
+                        const optionElement = $('<option></option>').val(plantingType).text(plantingType);
+                        plantingSelect.append(optionElement);
+                    });
+                } else {
+                    console.error('Expected plantingtypes to be an array, but got:', plantingtypes);
+                    alert('Failed to fetch planting types.');
+                }
             }
 
             $('#calculateButton').click(function () {

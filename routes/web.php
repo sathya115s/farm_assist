@@ -74,7 +74,7 @@ Route::get('/getcrop/{cropName}', [CropdataController::class, 'getActivitiesForC
 // Route to fetch activity schedule based on selections
 Route::get('/getactivityschedule/{cropName}/{soilType}/{plantingType}', [CropdataController::class, 'getActivitySchedule']);
 
-
+Route::get('/getbycrop/{crop}',[CropdataController::class,'getsoiltype']);
 
 
 //insurance part
@@ -86,8 +86,8 @@ Route::get('/livestock',[LivestockController::class,'show_livestock'])->name('li
 Route::get('/show_livestock',[LivestockController::class,'show'])->name('show_livestock');
 Route::post('/add_livestock',[LivestockController::class,'add'])->name('add_livestock');
 // Route::get('/livestock/{id}', [LivestockController::class, 'show']);
-Route::get('/edit_livestock/{id}', [LivestockController::class, 'edit'])->name('edit_livestock');
-Route::post('/update_livestock/{id}', [LivestockController::class, 'update']);
+Route::get('/edit_livestock/{id}', [LivestockController::class, 'edit'])->name('livestock.edit');
+Route::post('/update_livestock/{id}', [LivestockController::class, 'update'])->name('livestock.update');
 Route::post('/add_doctor', [LivestockController::class, 'updateReport']);
 
 Route::get('/get_doctor_info/{id}', [LivestockController::class, 'getDoctorInfo']);
@@ -111,3 +111,5 @@ Route::get('/report/{id}', [LivestockController::class, 'showReport']);
 Route::get('/login/{id}',[LoginController::class,'userbyid']);
 
 // Route::post('/add_livestock',[LivestockController::class,'add']);
+
+Route::get('/getplanting/{crop}',[CropdataController::class,'getplanting']);

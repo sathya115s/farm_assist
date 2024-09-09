@@ -11,6 +11,7 @@ use App\Http\Controllers\FinanceController;
 use App\Http\Controllers\WeatherController;
 use App\Http\Controllers\CropController;
 use App\Http\Controllers\MarketpriceController;
+use App\Http\Controllers\CropdataController;
 
 
 /*
@@ -84,3 +85,10 @@ Route::get('/report/{id}', [LivestockController::class, 'showReport']);
 
 
 Route::get('/login/{id}',[LoginController::class,'userbyid']);
+
+
+
+Route::get('/getbycrop/{crop}',[CropdataController::class,'getsoiltype']);
+
+
+Route::get('/getplanting/{crop}',[CropdataController::class,'getplanting']);

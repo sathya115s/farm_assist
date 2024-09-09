@@ -69,5 +69,29 @@ class CropdataController extends Controller
         $soilTypes = Cropdata::distinct('soil_type')->pluck('soil_type');
         return response()->json($soilTypes);
     }
+
+
+    public function getsoiltype($crop) {
+        // Fetch soil types based on the selected crop
+        $soilTypes = Cropdata::where('crop', $crop)->distinct()->pluck('soil_type');
+        
+        // Return a JSON response
+        return response()->json([
+            'message' => 'Soil types fetched according to the crop you have selected',
+            'soilTypes' => $soilTypes
+        ]);
+    }
+
+     public function getplanting($crop){
+        // Fetch soil types based on the selected crop
+        $plantingTypes = Cropdata::where('crop', $crop)->distinct()->pluck('type_of_planting');
+        
+        // Return a JSON response
+        return response()->json([
+            'message' => 'planting types fetched according to the crop you have selected',
+            'plantingTypes' => $plantingTypes
+        ]);
+     }
+    
     
 }

@@ -264,6 +264,7 @@
                         <th>Color</th>
                         <th>Feeding Time</th>
                         <th>Gender</th>
+                        <th>Doctor Name</th>
                         <th>Image</th>
                         <th>Prescription</th>
                         <th>Report</th>
@@ -430,11 +431,12 @@
                                     '<td>' + animal.color + '</td>' +
                                     '<td>' + animal.feeding_time + '</td>' +
                                     '<td>' + animal.gender + '</td>' +
+                                    '<td>' + animal.doctor_name + '</td>' +
                                     '<td><img src="' + animal.image + '" width="100" height="100"></td>' +
                                     '<td class="prescription">' + (animal.prescription || 'No prescription details available') + '</td>' +
                                     '<td><button class="btn btn-primary btn-sm doctor-number-btn" data-id="' + animal.id + '">Doctor Report</button></td>' +
                                     '<td><button class="btn btn-primary btn-sm viewreport-btn" data-id="' + animal.id + '">View Report</button></td>' +
-
+                                    '<td><button class="btn btn-primary btn-sm edit-btn" data-id="' + animal.id + '">Edit</button></td>' +
                                     '</tr>'
                                 );
                             });
@@ -566,35 +568,53 @@
                 });
             });
 
-            // Handle edit livestock form submission
-            $('#edit-livestock-form').submit(function (event) {
-                event.preventDefault(); // Prevent the default form submission
-
-                // Retrieve the ID from the form's data attribute or a hidden input field
-                var livestockId = $(this).data('id'); // Adjust this if the ID is elsewhere
-
-                // Create FormData object from the form
-                var formData = new FormData(this);
-
+            $(document).on('click', '.edit-btn', function () {
+                const animalId = $(this).data('id');
                 $.ajax({
-                    url: '{{ url('/update_livestock') }}/' + livestockId, // Include the ID in the URL
-                    type: 'POST', // Use POST method
-                    data: formData, // Send the form data
-                    contentType: false, // Prevent jQuery from setting Content-Type header
-                    processData: false, // Prevent jQuery from processing the data
-                    success: function (response) {
-                        if (response.success) {
-                            $('.success-message').show(); // Show success message
-                            loadAnimals(); // Refresh the list of animals
-                            $('#edit-livestock-form')[0].reset(); // Reset the form fields
-                            $('#editAnimalModal').modal('hide'); // Hide the modal
+                    url: '{{ route('livestock.edit', '') }}/' + animalId,
+                    method: 'GET',
+                    success: function (data) {
+                        const animal = data;
+                        $('#edit-animal-id').val(animal.id);
+                        $('#edit-animal-name').val(animal.name);
+                        $('#edit-birthdate').val(animal.birthdate);
+                        $('#edit-color').val(animal.color);
+                        $('#edit-feeding-time').val(animal.feeding_time);
+                        $('#edit-gender').val(animal.gender);
+                        if (animal.vaccinated === 'yes') {
+                            $('#edit-vaccinated-yes').prop('checked', true);
                         } else {
-                            alert('Failed to update livestock. Please try again.'); // User-friendly alert
+                            $('#edit-vaccinated-no').prop('checked', true);
                         }
+                        $('#edit-vaccination-date').val(animal.vaccinated_date);
+                        $('#edit-vaccination-date-group').toggle(animal.vaccinated === 'yes');
+                        $('#editAnimalModal').modal('show');
                     },
-                    error: function (response) {
-                        console.error('Error:', response); // Log the error for debugging
-                        alert('An error occurred. Please try again.'); // User-friendly error alert
+                    error: function () {
+                        $('.error-message').show().fadeOut(5000);
+                    }
+                });
+            });
+
+            $('#edit-livestock-form').on('submit', function (e) {
+                e.preventDefault();
+                let formData = new FormData(this);
+                $.ajax({
+                    url: '{{ route('livestock.update', '') }}/' + $('#edit-animal-id').val(),
+                    method: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken,
+                        'X-HTTP-Method-Override': 'PUT'
+                    },
+                    success: function () {
+                        $('#editAnimalModal').modal('hide');
+                        loadAnimalList();
+                    },
+                    error: function () {
+                        $('.error-message').show().fadeOut(5000);
                     }
                 });
             });
