@@ -108,6 +108,8 @@ Route::get('/getcrop/{cropName}', [CropController::class, 'getActivitiesForCrop'
 Route::get('/getactivityschedule/{cropName}/{soilType}/{plantingType}', [CropController::class, 'getActivitySchedule']);
 Route::get('/getbycrop/{crop}',[CropdataController::class,'getsoiltype']);
 Route::get('/getplanting/{crop}',[CropdataController::class,'getplanting']);
+Route::get('/getfarmsetup',[FinanceController::class,'getfarmsetup']);
+
 
 
 

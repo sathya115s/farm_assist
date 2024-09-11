@@ -16,179 +16,188 @@ class FinanceController extends Controller
     }
 
 
-    // FinanceController.php
-    public function getfarmitems()
-    {
-        $farmitems = Farmsetup::all();
-        return response()->json($farmitems);
-    }
-
-    public function getFinance()
-    {
+    
+public function getFinance()
+{
+    try {
         $farmItems = Farmsetup::select('id', 'name_of_product')->get();
-
-        // Return the items as a JSON response
-        return response()->json(['farmItems' => $farmItems]);
+        return response()->json([
+            'success' => true,
+            'message' => 'Farm finance items fetched successfully.',
+            'farmItems' => $farmItems
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'An error occurred while fetching farm finance items.',
+            'error' => $e->getMessage()
+        ], 500);
     }
+}
 
-    public function addIncome(Request $request)
-    {
-        try {
-            $validated = $request->validate([
-                'source_of_income' => 'required|string',
-                'farm_income_belong' => 'required|string',
-                'income_amount' => 'required|numeric',
-                'income_date' => 'required|date',
-            ]);
+public function addIncome(Request $request)
+{
+    try {
+        $validated = $request->validate([
+            'source_of_income' => 'required|string',
+            'farm_income_belong' => 'required|string',
+            'income_amount' => 'required|numeric',
+            'income_date' => 'required|date',
+        ]);
 
-            $income = new Income();
-            $income->source_of_income = $request->input('source_of_income');
-            $income->farm_income_belong = $request->input('farm_income_belong');
-            $income->income_amount = $request->input('income_amount');
-            $income->income_date = $request->input('income_date');
-            $income->save();
+        $income = new Income();
+        $income->source_of_income = $request->input('source_of_income');
+        $income->farm_income_belong = $request->input('farm_income_belong');
+        $income->income_amount = $request->input('income_amount');
+        $income->income_date = $request->input('income_date');
+        $income->save();
 
+        return response()->json([
+            'success' => true,
+            'message' => 'Income added successfully.',
+            'data' => [
+                'income' => $income
+            ]
+        ]);
+    } catch (\Illuminate\Validation\ValidationException $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Validation failed.',
+            'errors' => $e->errors()
+        ], 422);
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'An unexpected error occurred while adding income.',
+            'error' => $e->getMessage()
+        ], 500);
+    }
+}
+
+public function addExpense(Request $request)
+{
+    try {
+        $validated = $request->validate([
+            'type_expenses' => 'required|string',
+            'farm_expense_belongs' => 'required|string',
+            'expense_amount_spend' => 'required|numeric',
+            'expense_date' => 'required|date',
+        ]);
+
+        $expense = new Expense();
+        $expense->type_expenses = $request->input('type_expenses');
+        $expense->farm_expense_belongs = $request->input('farm_expense_belongs');
+        $expense->expense_amount_spend = $request->input('expense_amount_spend');
+        $expense->expense_date = $request->input('expense_date');
+        $expense->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Expense added successfully.',
+            'data' => [
+                'expense' => $expense
+            ]
+        ]);
+    } catch (\Illuminate\Validation\ValidationException $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Validation failed.',
+            'errors' => $e->errors()
+        ], 422);
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'An unexpected error occurred while adding expense.',
+            'error' => $e->getMessage()
+        ], 500);
+    }
+}
+
+public function addSetup(Request $request)
+{
+    try {
+        $validated = $request->validate([
+            'product_name' => 'required|string',
+        ]);
+
+        $farmItem = new Farmsetup();
+        $farmItem->name_of_product = $request->input('product_name');
+        $farmItem->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Product added successfully.',
+            'data' => [
+                'product' => $farmItem
+            ]
+        ]);
+    } catch (\Illuminate\Validation\ValidationException $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Validation failed.',
+            'errors' => $e->errors()
+        ], 422);
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'An unexpected error occurred while adding product.',
+            'error' => $e->getMessage()
+        ], 500);
+    }
+}
+
+public function getAnalytics(Request $request)
+{
+    try {
+        $date = $request->input('date', date('Y-m-d'));
+
+        $todayIncome = Income::whereDate('income_date', $date)->sum('income_amount');
+        $todayExpenses = Expense::whereDate('expense_date', $date)->sum('expense_amount_spend');
+        $netAmount = $todayIncome - $todayExpenses;
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Analytics data fetched successfully.',
+            'totalIncome' => $todayIncome,
+            'totalExpenses' => $todayExpenses,
+            'netAmount' => $netAmount,
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'An error occurred while fetching analytics data.',
+            'error' => $e->getMessage()
+        ], 500);
+    }
+}
+
+public function getfarmsetup() {
+    try {
+        $getfarmsetup = Farmsetup::all();
+        
+        if (!$getfarmsetup->isEmpty()) {
             return response()->json([
                 'success' => true,
-                'message' => 'Income added successfully',
-                'data' => [
-                    'income' => $income
-                ]
+                'message' => 'Farm setup data fetched successfully.',
+                'data' => $getfarmsetup
             ]);
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Validation failed',
-                'errors' => $e->errors()
-            ], 422);
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'An unexpected error occurred while adding income',
-                'error' => $e->getMessage()
-            ], 500);
-        }
-    }
-
-    public function addExpense(Request $request)
-    {
-        try {
-            $validated = $request->validate([
-                'type_expenses' => 'required|string',
-                'farm_expense_belongs' => 'required|string',
-                'expense_amount_spend' => 'required|numeric',
-                'expense_date' => 'required|date',
-            ]);
-
-            $expense = new Expense();
-            $expense->type_expenses = $request->input('type_expenses');
-            $expense->farm_expense_belongs = $request->input('farm_expense_belongs');
-            $expense->expense_amount_spend = $request->input('expense_amount_spend');
-            $expense->expense_date = $request->input('expense_date');
-            $expense->save();
-
+        } else {
             return response()->json([
                 'success' => true,
-                'message' => 'Expense added successfully',
-                'data' => [
-                    'expense' => $expense
-                ]
+                'message' => 'No farm setup data found.',
+                'data' => []
             ]);
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Validation failed',
-                'errors' => $e->errors()
-            ], 422);
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'An unexpected error occurred while adding expense',
-                'error' => $e->getMessage()
-            ], 500);
         }
+    } catch (\Exception $e) {
+        \Log::error('Error fetching farm setup: ' . $e->getMessage());
+        
+        return response()->json([
+            'success' => false,
+            'message' => 'Failed to fetch farm setup. Please try again later.',
+            'error' => $e->getMessage()
+        ], 500);
     }
-
-    public function addSetup(Request $request)
-    {
-        try {
-            $validated = $request->validate([
-                'product_name' => 'required|string',
-            ]);
-
-            $farmItem = new Farmsetup();
-            $farmItem->name_of_product = $request->input('product_name');
-            $farmItem->save();
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Product added successfully',
-                'data' => [
-                    'product' => $farmItem
-                ]
-            ]);
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Validation failed',
-                'errors' => $e->errors()
-            ], 422);
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'An unexpected error occurred while adding product',
-                'error' => $e->getMessage()
-            ], 500);
-        }
-    }
-
-    // public function getAnalytics()
-    // {
-    //     $totalIncome = Income::sum('income_amount');
-    //     $totalExpenses = Expense::sum('expense_amount_spend');
-    //     $netAmount = $totalIncome - $totalExpenses;
-
-    //     return response()->json([
-    //         'totalIncome' => $totalIncome,
-    //         'totalExpenses' => $totalExpenses,
-    //         'netAmount' => $netAmount,
-    //     ]);
-    // }
-
-
-
-    public function getAnalytics(Request $request)
-    {
-        try {
-            // Get the date from request or default to today's date
-            $date = $request->input('date', date('Y-m-d'));
-
-            // Fetch today's income using Eloquent
-            $todayIncome = Income::whereDate('income_date', $date)
-                ->sum('income_amount');
-
-            // Fetch today's expenses using Eloquent
-            $todayExpenses = Expense::whereDate('expense_date', $date)
-                ->sum('expense_amount_spend');
-
-            // Calculate net amount
-            $netAmount = $todayIncome - $todayExpenses;
-
-            // Return JSON response
-            return response()->json([
-                'totalIncome' => $todayIncome,
-                'totalExpenses' => $todayExpenses,
-                'netAmount' => $netAmount,
-            ]);
-        } catch (\Exception $e) {
-            // Handle any exceptions
-            return response()->json([
-                'error' => 'An error occurred while fetching analytics',
-                'message' => $e->getMessage()
-            ], 500);
-        }
-    }
-
+}
 
 
 }
